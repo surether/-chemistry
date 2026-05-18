@@ -1,0 +1,351 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --bg: #101113;
+  --panel: #17191d;
+  --panel-strong: #1e2227;
+  --line: rgba(255, 255, 255, 0.08);
+  --text: #f5f7f2;
+  --muted: #aab4a3;
+  --teal: #4fd1c5;
+  --gold: #f5c76b;
+  --rose: #ef8aa0;
+  --green: #8bd17c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  background: transparent;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background: transparent;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Noto Sans KR",
+    sans-serif;
+}
+
+button,
+textarea,
+input {
+  font: inherit;
+}
+
+button:focus-visible,
+textarea:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+
+.widget-root {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(79, 209, 197, 0.09), transparent 28rem),
+    rgba(8, 12, 18, 0.72);
+  backdrop-filter: blur(18px);
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.bg-dashboard {
+  background:
+    radial-gradient(circle at 15% 10%, rgba(79, 209, 197, 0.08), transparent 28rem),
+    linear-gradient(135deg, #101113 0%, #17191d 48%, #121513 100%);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(460px, 1.45fr) minmax(300px, 1fr);
+  gap: 1rem;
+}
+
+.column-stack {
+  display: grid;
+  min-height: 0;
+  grid-auto-rows: min-content;
+  gap: 1rem;
+}
+
+.widget-card {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(17, 24, 39, 0.72);
+  padding: 1rem;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 18px 48px rgba(0, 0, 0, 0.28);
+}
+
+.editable-card {
+  cursor: pointer;
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    transform 140ms ease;
+}
+
+.editable-card:hover,
+.editable-card:focus-visible {
+  background: rgba(31, 41, 55, 0.78);
+  border-color: rgba(255, 255, 255, 0.16);
+  transform: translateY(-1px);
+}
+
+.edit-hint {
+  border-radius: 999px;
+  background: rgba(79, 209, 197, 0.1);
+  color: var(--teal);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0;
+  padding: 0.35rem 0.5rem;
+  transition: opacity 140ms ease;
+  white-space: nowrap;
+}
+
+.editable-card:hover .edit-hint,
+.editable-card:focus-visible .edit-hint {
+  opacity: 1;
+}
+
+.drag-region {
+  -webkit-app-region: drag;
+}
+
+.no-drag,
+button,
+input,
+textarea,
+select,
+a {
+  -webkit-app-region: no-drag;
+}
+
+.empty-text {
+  border-radius: 16px;
+  border: 1px dashed rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 1rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.dock-button,
+.primary-button,
+.link-button,
+.secondary-button,
+.danger-button,
+.icon-button {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  transition:
+    border-color 140ms ease,
+    background-color 140ms ease,
+    transform 140ms ease;
+}
+
+.dock-button,
+.primary-button,
+.secondary-button,
+.danger-button,
+.icon-button {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--text);
+  font-size: 0.8125rem;
+  font-weight: 650;
+  line-height: 1;
+  padding: 0.58rem 0.82rem;
+}
+
+.primary-button {
+  background: rgba(79, 209, 197, 0.16);
+  border-color: rgba(79, 209, 197, 0.28);
+  color: var(--teal);
+}
+
+.secondary-button {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+}
+
+.danger-button {
+  background: rgba(239, 138, 160, 0.1);
+  border-color: rgba(239, 138, 160, 0.22);
+  color: var(--rose);
+}
+
+.icon-button {
+  display: grid;
+  height: 2rem;
+  place-items: center;
+  width: 2rem;
+}
+
+.link-button {
+  min-height: 74px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  padding: 0.85rem;
+  text-align: left;
+}
+
+.dock-button:hover:not(:disabled),
+.primary-button:hover:not(:disabled),
+.secondary-button:hover:not(:disabled),
+.danger-button:hover:not(:disabled),
+.icon-button:hover:not(:disabled),
+.link-button:hover {
+  background: rgba(79, 209, 197, 0.12);
+  border-color: rgba(79, 209, 197, 0.28);
+  transform: translateY(-1px);
+}
+
+.dock-button:disabled,
+.primary-button:disabled,
+.secondary-button:disabled,
+.danger-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.modal-backdrop,
+.settings-scrim {
+  background: rgba(0, 0, 0, 0.38);
+  inset: 0;
+  position: fixed;
+  z-index: 40;
+}
+
+.modal-backdrop {
+  display: grid;
+  padding: 1.5rem;
+  place-items: center;
+}
+
+.modal-panel,
+.settings-panel {
+  background: rgba(17, 24, 39, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.45);
+}
+
+.modal-panel {
+  border-radius: 22px;
+  max-width: min(1120px, calc(100vw - 3rem));
+  padding: 1.25rem;
+  width: 100%;
+}
+
+.settings-scrim {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.settings-panel {
+  height: 100%;
+  max-width: min(420px, 100vw);
+  padding: 1.25rem;
+  width: 420px;
+}
+
+.editor-form {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.editor-form label {
+  color: var(--muted);
+  display: grid;
+  font-size: 0.75rem;
+  gap: 0.4rem;
+}
+
+.editor-input,
+.editor-textarea {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.22);
+  color: var(--text);
+  font-size: 0.875rem;
+  min-height: 2.35rem;
+  outline: none;
+  padding: 0.55rem 0.7rem;
+  width: 100%;
+}
+
+.editor-textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.editor-row {
+  align-items: center;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.5rem;
+}
+
+.tab-button {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--muted);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  padding: 0.48rem 0.8rem;
+}
+
+.tab-button.is-active {
+  background: rgba(79, 209, 197, 0.16);
+  border-color: rgba(79, 209, 197, 0.3);
+  color: var(--teal);
+}
+
+@media (max-width: 980px) {
+  .editor-row {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 1180px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .bg-dashboard {
+    padding: 0.75rem;
+  }
+
+  .widget-root {
+    border-radius: 0;
+    padding: 0.75rem;
+  }
+
+  .widget-card {
+    border-radius: 14px;
+  }
+}

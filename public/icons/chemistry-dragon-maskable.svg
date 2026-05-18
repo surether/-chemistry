@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Chemistry dragon maskable icon">
+  <rect width="512" height="512" fill="#83d0f4"/>
+  <path d="M0 352h512v160H0z" fill="#5faf48"/>
+  <circle cx="256" cy="256" r="176" fill="#f1d79a"/>
+  <path d="M292 128c30-42 74-50 112-27 40 24 52 76 26 123l-22 40 38 27-70 20-28-58 43-32c20-15 27-41 15-62-15-26-50-28-75-3l-42 43-22-52 25-19z" fill="#d8472f"/>
+  <path d="M328 174h34v34h-34zM376 208h30v30h-30z" fill="#ffb347"/>
+  <path d="M112 206h100v100H112z" fill="#f8fbff" stroke="#4b2b18" stroke-width="18"/>
+  <path d="M132 148h58v58h-58z" fill="#7b4dd1"/>
+  <path d="M164 252h26v-18h18v60h-18v-18h-26v18h-18v-60h18v18z" fill="#1f1a16"/>
+  <path d="M244 236l58 28-58 28-22 58-22-58-58-28 58-28 22-58 22 58z" fill="#49d8ff" opacity=".9"/>
+</svg>

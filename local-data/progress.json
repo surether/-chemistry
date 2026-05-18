@@ -1,0 +1,6 @@
+[
+  { "className": "1-1", "unit": "일차함수", "lesson": "기울기", "status": "진행 중", "progressRate": 65 },
+  { "className": "1-2", "unit": "일차함수", "lesson": "그래프", "status": "예정", "progressRate": 45 },
+  { "className": "1-3", "unit": "일차함수", "lesson": "활용", "status": "보충 필요", "progressRate": 55 },
+  { "className": "1-4", "unit": "일차함수", "lesson": "기울기", "status": "진행 중", "progressRate": 60 }
+]

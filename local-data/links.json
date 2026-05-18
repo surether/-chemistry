@@ -1,0 +1,6 @@
+[
+  { "title": "나이스", "kind": "url", "target": "https://www.neis.go.kr", "category": "school" },
+  { "title": "학교 홈페이지", "kind": "url", "target": "https://school.example.kr", "category": "school" },
+  { "title": "수업자료 폴더", "kind": "path", "target": "D:/Math/Materials", "category": "local" },
+  { "title": "문제은행 폴더", "kind": "path", "target": "D:/Math/Problems", "category": "local" }
+]

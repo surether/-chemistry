@@ -1,0 +1,9 @@
+{
+  "teacherName": "수학교사",
+  "schoolName": "샘플중학교",
+  "grade": "1학년",
+  "theme": "dark",
+  "layout": "dual-monitor-wide",
+  "windowMode": "widget",
+  "privacyMode": true
+}

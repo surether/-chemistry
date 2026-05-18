@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Chemistry dragon game icon">
+  <rect width="512" height="512" rx="96" fill="#83d0f4"/>
+  <path d="M0 360h512v152H0z" fill="#5faf48"/>
+  <path d="M78 396c42-88 116-132 190-132s150 44 192 132H78z" fill="#f1d79a"/>
+  <path d="M286 146c26-46 70-62 112-42 45 21 62 74 40 125l-17 39 34 22-57 21-29-48 36-30c19-16 26-43 14-66-14-27-49-32-75-10l-42 36-16-47z" fill="#d8472f"/>
+  <path d="M332 178h36v36h-36zM382 214h32v32h-32z" fill="#ffb347"/>
+  <path d="M110 214h88v88h-88z" fill="#f8fbff" stroke="#4b2b18" stroke-width="18"/>
+  <path d="M128 158h52v56h-52z" fill="#7b4dd1"/>
+  <path d="M165 146l47 33-32 35h-52l-30-35 46-33h21z" fill="#f2d57e"/>
+  <path d="M141 250h26v-18h18v58h-18v-18h-26v18h-18v-58h18v18z" fill="#1f1a16"/>
+  <path d="M218 242l50 24-50 24-18 48-18-48-50-24 50-24 18-48 18 48z" fill="#49d8ff" opacity=".9"/>
+</svg>
