@@ -1,40 +1,39 @@
 # UI Review Checklist
 
-Use this checklist after UI changes.
-
 ## Screen Purpose
 
-- The screen clearly supports a teacher's daily glance workflow.
-- Primary actions are refresh, checklist save, memo save, and link open.
-- No marketing page or unrelated feature surface was added.
+- The current screen supports the chemistry fantasy learning loop.
+- Spell cards clearly show molecule name, formula, attack power, required cubes, and explanation.
+- Atom comparison remains visible for the selected formula.
 
 ## Visual Review
 
-- Visual hierarchy is clear.
-- Spacing is consistent across columns and cards.
-- Alignment is stable at 1920x1080, 1600x900, and narrower widths.
-- Typography is deliberate for headings, labels, buttons, and data rows.
-- Colors come from the design system.
-- Cards and controls use consistent radius and borders.
+- Fantasy parchment style is preserved.
+- Spell cards do not overlap.
+- The spell list can scroll internally when many cards are present.
+- Text fits inside cards, buttons, and panels at desktop and compact widths.
+- `Cl` cube is visually distinct and readable.
+- Attack/effect images remain decorative and do not hide key text.
 
 ## State Review
 
-- Loading state exists.
-- Empty schedule state exists.
-- Error state exists.
-- Save-in-progress state exists.
-- Privacy warning appears near memo.
+- Empty inventory and turn cube states are readable.
+- Missing cube warning appears on locked spells.
+- Castable state is visually distinct.
+- Dragon danger state gives text feedback.
+- Result screen still shows victory/defeat details.
 
-## Security Review
+## Learning Review
 
-- Renderer does not import `fs`, `path`, or `shell`.
-- File access goes through preload IPC.
-- Allowed JSON filenames are explicitly listed.
-- External links open through Electron main process.
-- No analytics, telemetry, cloud sync, API keys, or external data integrations exist.
+- Formula cards match the requested molecule formulas.
+- Atom counts before and after match.
+- Explanations do not claim chemically incorrect full reaction behavior.
+- HCl includes the added chlorine cube.
 
-## Remaining Risk Review
+## Deployment Review
 
-- Mark uncertain assumptions.
-- Do not add future features during MVP validation.
-- If harness fails, fix only the first failing issue.
+- `npm run lint` passes.
+- `npm run smoke` passes.
+- `npm run build` passes.
+- Browser check passes at `/‑chemistry/`.
+- GitHub Pages workflow remains present.

@@ -16,20 +16,27 @@ import "./App.css";
 const DRAGON_MAX_HP = 18;
 
 const INITIAL_BAG = [
-  ...Array(18).fill("H"),
-  ...Array(16).fill("O"),
-  ...Array(8).fill("C"),
-  ...Array(8).fill("N"),
-  ...Array(7).fill("D"),
+  ...Array(30).fill("H"),
+  ...Array(26).fill("O"),
+  ...Array(16).fill("C"),
+  ...Array(10).fill("N"),
+  ...Array(8).fill("Cl"),
+  ...Array(9).fill("D"),
 ];
 
 const SPELL_EFFECT_IMAGES = {
-  "water-bomb": spellWaterBomb,
-  "carbon-burst": spellCarbonBurst,
-  "carbon-mist": spellCarbonMist,
-  "lightning-aqua": spellLightningAqua,
+  "hydrogen-wisp": spellLightningAqua,
+  "water-guard": spellWaterBomb,
+  "oxygen-gale": spellLightningAqua,
+  "peroxide-spark": spellWaterBomb,
+  "nitrogen-seal": spellAmmoniaVeil,
   "ammonia-veil": spellAmmoniaVeil,
-  "methane-inferno": spellMethaneInferno,
+  "carbon-dioxide-fog": spellCarbonMist,
+  "methane-flame": spellMethaneInferno,
+  "ozone-barrier": spellLightningAqua,
+  "hydrogen-chloride-sting": spellCarbonBurst,
+  "carbon-monoxide-shadow": spellCarbonMist,
+  "glucose-star": spellWaterBomb,
 };
 
 const BACKGROUND_MUSIC = [
@@ -42,92 +49,169 @@ const ELEMENTS = {
   O: { name: "산소", label: "산소 O", short: "O" },
   C: { name: "탄소", label: "탄소 C", short: "C" },
   N: { name: "질소", label: "질소 N", short: "N" },
+  Cl: { name: "염소", label: "염소 Cl", short: "Cl" },
   D: { name: "드래곤", label: "드래곤 큐브", short: "D" },
 };
 
+function makeCubes(counts) {
+  return Object.entries(counts).flatMap(([cube, count]) => Array(count).fill(cube));
+}
+
 const SPELLS = [
   {
-    id: "water-bomb",
-    name: "워터 밤",
-    subtitle: "물의 생성",
+    id: "hydrogen-wisp",
+    name: "수소 위스프",
+    subtitle: "수소 기체 H₂",
     level: 1,
-    damage: 3,
-    equation: "2H₂ + O₂ → 2H₂O",
-    reactants: ["H", "H", "H", "H", "O", "O"],
-    products: ["H", "O", "H", "H", "O", "H"],
+    damage: 1,
+    equation: "2H → H₂",
+    reactants: makeCubes({ H: 2 }),
+    products: makeCubes({ H: 2 }),
     explanation:
-      "수소 분자 2개와 산소 분자 1개가 반응하여 물 분자 2개가 됩니다. 반응 전후 H는 4개, O는 2개로 같습니다.",
+      "수소 원자 2개가 모여 수소 기체 분자 H₂를 이룹니다. H 원자 수는 완성 전후 모두 2개입니다.",
   },
   {
-    id: "carbon-burst",
-    name: "카본 버스트",
-    subtitle: "탄소의 완전 연소",
+    id: "water-guard",
+    name: "워터 가드",
+    subtitle: "물 H₂O",
     level: 1,
     damage: 2,
-    equation: "C + O₂ → CO₂",
-    reactants: ["C", "O", "O"],
-    products: ["O", "C", "O"],
+    equation: "2H + O → H₂O",
+    reactants: makeCubes({ H: 2, O: 1 }),
+    products: ["H", "O", "H"],
     explanation:
-      "탄소가 산소와 결합하여 이산화탄소가 됩니다. 반응 전후 C는 1개, O는 2개로 같습니다.",
+      "물 분자 H₂O는 수소 원자 2개와 산소 원자 1개로 이루어집니다. H는 2개, O는 1개로 같습니다.",
   },
   {
-    id: "carbon-mist",
-    name: "카본 미스트",
-    subtitle: "탄소의 불완전 연소",
-    level: 2,
-    damage: 2,
-    equation: "2C + O₂ → 2CO",
-    reactants: ["C", "C", "O", "O"],
-    products: ["C", "O", "C", "O"],
+    id: "oxygen-gale",
+    name: "산소 게일",
+    subtitle: "산소 기체 O₂",
+    level: 1,
+    damage: 1,
+    equation: "2O → O₂",
+    reactants: makeCubes({ O: 2 }),
+    products: makeCubes({ O: 2 }),
     explanation:
-      "산소가 부족할 때 탄소가 불완전 연소하여 일산화탄소가 만들어질 수 있습니다. 반응 전후 C는 2개, O는 2개로 같습니다.",
+      "산소 기체 분자 O₂는 산소 원자 2개로 이루어집니다. O 원자 수는 완성 전후 모두 2개입니다.",
   },
   {
-    id: "lightning-aqua",
-    name: "라이트닝 아쿠아",
-    subtitle: "물의 전기 분해",
+    id: "peroxide-spark",
+    name: "퍼옥사이드 스파크",
+    subtitle: "과산화수소 H₂O₂",
     level: 2,
     damage: 3,
-    equation: "2H₂O → 2H₂ + O₂",
-    reactants: ["H", "O", "H", "H", "O", "H"],
-    products: ["H", "H", "H", "H", "O", "O"],
+    equation: "2H + 2O → H₂O₂",
+    reactants: makeCubes({ H: 2, O: 2 }),
+    products: ["H", "O", "O", "H"],
     explanation:
-      "물 분자 2개가 수소 분자 2개와 산소 분자 1개로 분해됩니다. 반응 전후 H는 4개, O는 2개로 같습니다.",
+      "과산화수소 H₂O₂는 수소 2개와 산소 2개로 이루어집니다. 두 원자의 개수는 완성 전후에 같습니다.",
+  },
+  {
+    id: "nitrogen-seal",
+    name: "질소 봉인",
+    subtitle: "질소 기체 N₂",
+    level: 1,
+    damage: 1,
+    equation: "2N → N₂",
+    reactants: makeCubes({ N: 2 }),
+    products: makeCubes({ N: 2 }),
+    explanation:
+      "질소 기체 분자 N₂는 질소 원자 2개로 이루어집니다. N 원자 수는 완성 전후 모두 2개입니다.",
   },
   {
     id: "ammonia-veil",
     name: "암모니아 베일",
-    subtitle: "암모니아 합성",
-    level: 3,
-    damage: 4,
-    equation: "N₂ + 3H₂ → 2NH₃",
-    reactants: ["N", "N", "H", "H", "H", "H", "H", "H"],
-    products: ["N", "H", "H", "H", "N", "H", "H", "H"],
+    subtitle: "암모니아 NH₃",
+    level: 2,
+    damage: 3,
+    equation: "N + 3H → NH₃",
+    reactants: makeCubes({ N: 1, H: 3 }),
+    products: ["N", "H", "H", "H"],
     explanation:
-      "질소 분자 1개와 수소 분자 3개가 반응하여 암모니아 분자 2개가 됩니다. 반응 전후 N은 2개, H는 6개로 같습니다.",
+      "암모니아 NH₃는 질소 원자 1개와 수소 원자 3개로 이루어집니다. N은 1개, H는 3개로 같습니다.",
   },
   {
-    id: "methane-inferno",
-    name: "메테인 인페르노",
-    subtitle: "메테인의 연소",
+    id: "carbon-dioxide-fog",
+    name: "이산화탄소 안개",
+    subtitle: "이산화탄소 CO₂",
+    level: 2,
+    damage: 3,
+    equation: "C + 2O → CO₂",
+    reactants: makeCubes({ C: 1, O: 2 }),
+    products: ["O", "C", "O"],
+    explanation:
+      "이산화탄소 CO₂는 탄소 원자 1개와 산소 원자 2개로 이루어집니다. C는 1개, O는 2개로 같습니다.",
+  },
+  {
+    id: "methane-flame",
+    name: "메테인 플레임",
+    subtitle: "메테인 CH₄",
+    level: 2,
+    damage: 4,
+    equation: "C + 4H → CH₄",
+    reactants: makeCubes({ C: 1, H: 4 }),
+    products: ["H", "H", "C", "H", "H"],
+    explanation:
+      "메테인 CH₄는 탄소 원자 1개와 수소 원자 4개로 이루어집니다. C는 1개, H는 4개로 같습니다.",
+  },
+  {
+    id: "ozone-barrier",
+    name: "오존 배리어",
+    subtitle: "오존 O₃",
+    level: 2,
+    damage: 3,
+    equation: "3O → O₃",
+    reactants: makeCubes({ O: 3 }),
+    products: makeCubes({ O: 3 }),
+    explanation:
+      "오존 O₃는 산소 원자 3개가 모인 분자입니다. O 원자 수는 완성 전후 모두 3개입니다.",
+  },
+  {
+    id: "hydrogen-chloride-sting",
+    name: "염화수소 가시",
+    subtitle: "염화수소 HCl",
+    level: 2,
+    damage: 3,
+    equation: "H + Cl → HCl",
+    reactants: makeCubes({ H: 1, Cl: 1 }),
+    products: ["H", "Cl"],
+    explanation:
+      "염화수소 HCl은 수소 원자 1개와 염소 원자 1개로 이루어집니다. H와 Cl은 각각 1개입니다.",
+  },
+  {
+    id: "carbon-monoxide-shadow",
+    name: "일산화탄소 그림자",
+    subtitle: "일산화탄소 CO",
+    level: 2,
+    damage: 2,
+    equation: "C + O → CO",
+    reactants: makeCubes({ C: 1, O: 1 }),
+    products: ["C", "O"],
+    explanation:
+      "일산화탄소 CO는 탄소 원자 1개와 산소 원자 1개로 이루어집니다. C와 O는 각각 1개입니다.",
+  },
+  {
+    id: "glucose-star",
+    name: "포도당 별빛",
+    subtitle: "포도당 C₆H₁₂O₆",
     level: 4,
     damage: 5,
-    equation: "CH₄ + 2O₂ → CO₂ + 2H₂O",
-    reactants: ["C", "H", "H", "H", "H", "O", "O", "O", "O"],
-    products: ["O", "C", "O", "H", "O", "H", "H", "O", "H"],
+    equation: "6C + 12H + 6O → C₆H₁₂O₆",
+    reactants: makeCubes({ C: 6, H: 12, O: 6 }),
+    products: ["C", "H", "O", "H", "C", "H", "O", "H", "C", "H", "O", "H", "C", "H", "O", "H", "C", "H", "O", "H", "C", "H", "O", "H"],
     explanation:
-      "메테인이 산소와 반응하여 이산화탄소와 물이 됩니다. 반응 전후 C는 1개, H는 4개, O는 4개로 같습니다.",
+      "포도당 C₆H₁₂O₆는 탄소 6개, 수소 12개, 산소 6개로 이루어진 큰 분자입니다. 모든 원자 수가 완성 전후에 같습니다.",
   },
 ];
 
 const GUIDE_SECTIONS = [
   {
     title: "게임 목표",
-    body: "화학 마법사가 되어 원소 큐브를 모으고 균형 잡힌 반응식 주문을 완성합니다. 주문이 성공하면 드래곤 체력이 줄어듭니다.",
+    body: "화학 마법사가 되어 원소 큐브를 모으고 분자식 주문을 완성합니다. 주문이 성공하면 드래곤 체력이 줄어듭니다.",
   },
   {
     title: "원소 큐브란?",
-    body: "수소 H, 산소 O, 탄소 C, 질소 N 큐브는 반응식에 들어가는 원자를 뜻합니다. 드래곤 큐브는 위험 큐브입니다.",
+    body: "수소 H, 산소 O, 탄소 C, 질소 N, 염소 Cl 큐브는 분자를 이루는 원자를 뜻합니다. 드래곤 큐브는 위험 큐브입니다.",
   },
   {
     title: "차례 진행 방법",
@@ -138,12 +222,12 @@ const GUIDE_SECTIONS = [
     body: "드래곤 큐브가 나오면 이번 차례에 뽑은 원소 큐브를 모두 잃습니다. 많이 뽑을수록 보상과 위험이 함께 커집니다.",
   },
   {
-    title: "주문 카드와 화학 반응식",
-    body: "주문 카드는 균형 잡힌 화학 반응식입니다. 보관 큐브가 반응물 조건을 만족하면 주문을 시전할 수 있습니다.",
+    title: "주문 카드와 분자식",
+    body: "주문 카드는 H₂, H₂O, NH₃, CO₂ 같은 분자식을 보여줍니다. 보관 큐브가 분자식에 필요한 원자 조건을 만족하면 주문을 시전할 수 있습니다.",
   },
   {
     title: "반응 전후 원자 수 비교",
-    body: "반응물 큐브가 생성물 큐브로 재배열되어도 원자의 종류와 개수는 변하지 않습니다. 표에서 반응 전후를 비교하세요.",
+    body: "원소 큐브가 분자식 모양으로 배열되어도 원자의 종류와 개수는 변하지 않습니다. 표에서 완성 전후를 비교하세요.",
   },
   {
     title: "승리와 패배 조건",
@@ -152,24 +236,24 @@ const GUIDE_SECTIONS = [
 ];
 
 const GAME_GUIDE_SECTIONS = [
-  { title: "게임 목표", body: "원소 큐브를 모아 반응식 주문을 완성하고 드래곤 체력을 0으로 만드세요." },
-  { title: "큐브 설명", body: "H는 수소, O는 산소, C는 탄소, N은 질소입니다. D는 이번 차례 큐브를 잃게 하는 드래곤 큐브입니다." },
+  { title: "게임 목표", body: "원소 큐브를 모아 분자식 주문을 완성하고 드래곤 체력을 0으로 만드세요." },
+  { title: "큐브 설명", body: "H는 수소, O는 산소, C는 탄소, N은 질소, Cl은 염소입니다. D는 이번 차례 큐브를 잃게 하는 드래곤 큐브입니다." },
   { title: "차례 진행 방법", body: "큐브를 뽑다가 멈추면 마지막 큐브 1개를 버리고 나머지를 보관합니다." },
   { title: "드래곤 큐브 규칙", body: "D가 나오면 D와 이번 차례 원소 큐브가 모두 버린 큐브로 이동합니다." },
-  { title: "주문 카드 사용 방법", body: "보관 큐브가 주문 카드의 반응물 조건을 만족하면 주문 시전 버튼이 활성화됩니다." },
-  { title: "화학 반응식 학습 포인트", body: "계수는 참여하는 분자 수를 뜻하며, 반응 전후 원자 종류와 개수는 같습니다." },
+  { title: "주문 카드 사용 방법", body: "보관 큐브가 주문 카드의 분자식 조건을 만족하면 주문 시전 버튼이 활성화됩니다." },
+  { title: "분자식 학습 포인트", body: "분자식의 아래 작은 숫자는 그 원자가 몇 개 들어 있는지 보여줍니다. 완성 전후 원자 종류와 개수는 같습니다." },
   { title: "승리와 패배", body: "주문 피해로 드래곤 체력을 0으로 만들면 승리, 주머니가 먼저 비면 패배입니다." },
 ];
 
 const TUTORIAL_STEPS = [
   {
     title: "1. 게임 목표",
-    text: "당신은 화학 마법사입니다. 원소 큐브를 모아 화학 반응식 주문을 완성하고 드래곤의 체력을 0으로 만드세요.",
+    text: "당신은 화학 마법사입니다. 원소 큐브를 모아 분자식 주문을 완성하고 드래곤의 체력을 0으로 만드세요.",
     highlight: "goal",
   },
   {
     title: "2. 원소 큐브",
-    text: "H는 수소, O는 산소, C는 탄소, N은 질소입니다. 큐브는 화학 반응식에 필요한 원소를 나타냅니다.",
+    text: "H는 수소, O는 산소, C는 탄소, N은 질소, Cl은 염소입니다. 큐브는 분자를 이루는 원자를 나타냅니다.",
     highlight: "cubes",
   },
   {
@@ -189,12 +273,12 @@ const TUTORIAL_STEPS = [
   },
   {
     title: "6. 주문 시전",
-    text: "보관한 원소 큐브가 주문 카드의 반응물 조건을 만족하면 주문을 시전할 수 있습니다.",
+    text: "보관한 원소 큐브가 주문 카드의 분자식 조건을 만족하면 주문을 시전할 수 있습니다.",
     highlight: "spell",
   },
   {
-    title: "7. 화학 반응식 이해",
-    text: "주문을 시전하면 반응물 큐브가 생성물 큐브로 재배열됩니다. 이때 원자의 종류와 개수는 반응 전후에 같습니다.",
+    title: "7. 분자식 이해",
+    text: "주문을 시전하면 원소 큐브가 분자식 모양으로 배열됩니다. 이때 원자의 종류와 개수는 완성 전후에 같습니다.",
     highlight: "analysis",
   },
   {
@@ -304,7 +388,7 @@ function CubeGroup({ cubes, emptyText, compact = false }) {
 }
 
 function CubeCounts({ counts, includeDragon = false }) {
-  const cubeTypes = includeDragon ? ["H", "O", "C", "N", "D"] : ["H", "O", "C", "N"];
+  const cubeTypes = includeDragon ? ["H", "O", "C", "N", "Cl", "D"] : ["H", "O", "C", "N", "Cl"];
 
   return (
     <div className="cube-count-grid">
@@ -437,6 +521,7 @@ function GuideScreen({ guideTopic, setGuideTopic, onBack, onTutorial, onPlay }) 
             <ElementCube type="O" />
             <ElementCube type="C" />
             <ElementCube type="N" />
+            <ElementCube type="Cl" />
             <ElementCube type="D" />
           </div>
           <p className="science-note">반응식은 원자가 새로 생기거나 사라지지 않고 다시 배열되는 과정을 보여줍니다.</p>
@@ -460,13 +545,14 @@ function TutorialScreen({ step, setStep, onBack, onPlay }) {
             <ElementCube type="O" />
             <ElementCube type="C" />
             <ElementCube type="N" />
+            <ElementCube type="Cl" />
           </div>
           <div className={`mock-buttons ${current.highlight === "draw" || current.highlight === "stop" ? "is-highlighted" : ""}`}>
             <span>큐브 뽑기</span>
             <span>멈추기</span>
           </div>
           <div className={`mock-spell ${current.highlight === "spell" || current.highlight === "analysis" ? "is-highlighted" : ""}`}>
-            <strong>2H₂ + O₂ → 2H₂O</strong>
+            <strong>2H + O → H₂O</strong>
             <small>원자 수 비교</small>
           </div>
         </div>
@@ -700,7 +786,7 @@ function GameScreen({
         dragonHp={dragonHp}
         animationState={animationState}
         attackCubes={selectedSpell.reactants}
-        attackEffectSrc={SPELL_EFFECT_IMAGES[selectedSpell.id]}
+        attackEffectSrc={SPELL_EFFECT_IMAGES[selectedSpell.id] ?? spellWaterBomb}
       />
       <div className="compact-tabs" role="tablist" aria-label="게임 패널">
         {MOBILE_TABS.map((tab) => (
@@ -773,7 +859,7 @@ function GameScreen({
           <div className="panel-heading">
             <div>
               <span>주문 카드</span>
-              <h2>화학 반응식 주문</h2>
+              <h2>분자식 주문</h2>
             </div>
           </div>
           <div className="spell-grid">
@@ -880,7 +966,7 @@ export default function App() {
   const [keptCubes, setKeptCubes] = useState([]);
   const [discardedCubes, setDiscardedCubes] = useState([]);
   const [dragonHp, setDragonHp] = useState(DRAGON_MAX_HP);
-  const [selectedSpellId, setSelectedSpellId] = useState("water-bomb");
+  const [selectedSpellId, setSelectedSpellId] = useState("hydrogen-wisp");
   const [message, setMessage] = useState("원소 큐브를 뽑아 주문의 재료를 모으세요. 멈추면 마지막 큐브 1개는 버립니다.");
   const [gameStatus, setGameStatus] = useState("playing");
   const [tutorialStep, setTutorialStep] = useState(0);
@@ -1079,7 +1165,7 @@ export default function App() {
     setKeptCubes([]);
     setDiscardedCubes([]);
     setDragonHp(DRAGON_MAX_HP);
-    setSelectedSpellId("water-bomb");
+    setSelectedSpellId("hydrogen-wisp");
     setMessage(startMessage);
     setGameStatus("playing");
     setTutorialStep(0);
@@ -1189,7 +1275,7 @@ export default function App() {
     playSfx("cast");
     window.setTimeout(() => playSfx("impact"), 2140);
     triggerAnimation("cast");
-    addEventLog(`주문 성공! ${spell.equation} 반응식이 완성되었습니다. 드래곤에게 ${spell.damage} 피해를 입혔습니다.`, "success");
+    addEventLog(`주문 성공! ${spell.equation} 분자식 주문이 완성되었습니다. 드래곤에게 ${spell.damage} 피해를 입혔습니다.`, "success");
 
     if (nextDragonHp <= 0) {
       finishGame("win", "승리! 화학 반응식 주문으로 드래곤을 물리쳤습니다.");

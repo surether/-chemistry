@@ -2,57 +2,53 @@
 
 ## App Type
 
-교사용 Windows 듀얼모니터 업무 대시보드 앱.
+Korean middle-school science fantasy learning game. The app teaches molecule formulas, atom counts, cube collection, and atom conservation through a wizard-versus-dragon battle.
 
 ## Target Users
 
-중학교 교사가 보조 모니터에서 수업 준비, 오늘 일정, 급식, D-day, 할 일, 링크, 일반 메모를 한 화면에서 확인한다.
+- Middle-school science learners using Chromebook or desktop Chrome.
+- Teachers projecting the game in class or sharing a GitHub Pages URL.
 
 ## Platform
 
-- Windows desktop
-- Electron shell
-- React renderer
-- 1920x1080 보조 모니터 우선
+- Browser-first Vite React web app.
+- PWA-capable static deployment through GitHub Pages.
+- Optional Electron wrapper exists, but the primary delivery path is web.
 
 ## UI Framework
 
-- React
-- TypeScript
-- Tailwind CSS
-- No existing component library
+- React renderer.
+- Plain CSS in `src/App.css`.
+- No component library.
 
 ## Design Direction
 
-- Transparent frameless widget shell with dark translucent dashboard surfaces.
-- Card-based widgets with clear information hierarchy.
-- Moderate density: enough data at a glance, but not crowded.
-- Quiet professional tone for school staff work.
-- Minimal animation.
-- No decorative marketing hero.
+- Classroom-friendly classic fantasy board-game style.
+- Pixel-art meadow battle scene, parchment panels, element cubes, spell cards, dragon HP, and animated spell effects.
+- Korean-only visible UI.
+- One-screen or compact-scroll gameplay, with clear panels for status, spell cards, analysis, and log.
 
 ## Design Tokens
 
-- Background: graphite black, not pure blue.
-- Panel: layered neutral dark surfaces.
-- Accent colors: teal for local/active state, gold for caution/date emphasis, rose for errors/D-day, green for safe/privacy state.
-- Radius: 12px controls, 18px cards.
-- Shadow: soft dark elevation plus subtle inner top line.
+- Background: sky/meadow fantasy scene.
+- Panels: parchment beige with warm brown borders.
+- Buttons: amber/brown fantasy buttons with visible focus and touch-friendly sizing.
+- Magic effects: cyan, gold, violet, green.
+- Cubes: element-specific colors with letters as non-color cues.
+- Radius: 8px for cards and panels.
 
 ## Main User Tasks
 
-1. Read current time and teacher context.
-2. Check today's timetable and meal.
-3. Review calendar and D-day items.
-4. Track class progress.
-5. Save checklist changes.
-6. Save general non-personal memo.
-7. Open trusted links or local folders through Electron IPC.
-8. Click cards directly to edit local dashboard data.
-9. Use tray controls to show, hide, pin, or quit the widget.
+1. Start the game and read the guide/tutorial.
+2. Draw cubes and decide when to stop.
+3. Collect element cubes in inventory.
+4. Select a molecule spell card.
+5. Compare atom counts before and after the molecule formula is completed.
+6. Cast spells to reduce dragon HP.
+7. Review feedback and restart after victory or defeat.
 
 ## Uncertain Assumptions
 
-- exact school PC security policy: uncertain.
-- exact preferred monitor placement: uncertain.
-- exact Windows font availability beyond system Korean fonts: uncertain.
+- Exact classroom display size varies.
+- Chromebook PWA install availability depends on school policy.
+- Current molecule formula cards are intentionally formula-composition cards, not full real-world reaction equations.

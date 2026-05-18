@@ -2,66 +2,61 @@
 
 ## Principles
 
-- Use app-specific design tokens instead of arbitrary colors.
-- Keep UI and feature logic separated where practical.
-- Prefer reusable widget cards and shared button styles.
-- Define one screen purpose first: a glanceable local-first teacher dashboard.
-- Include loading, empty, and error states.
-- Avoid whole-app redesigns after the first MVP screen is established.
+- Preserve the fantasy chemistry game tone.
+- Keep all visible UI text in Korean.
+- Use existing React components and CSS classes before adding new abstractions.
+- Keep controls readable on classroom projectors.
+- Use text feedback in addition to animation.
 
 ## Layout
 
-- TopBar: product title, real-time clock, teacher information, privacy status.
-- TopBar also acts as the drag handle in widget mode.
-- Left column: today's schedule, meal, weather placeholder.
-- Center grid: calendar, class progress, tasks.
-- Right column: D-day, quick links, memo.
-- BottomDock: refresh, settings placeholder, load/save status, version.
+- Start screen: battle scene with title, subtitle, and start buttons.
+- Guide/tutorial: centered parchment panels with short Korean explanations.
+- Game screen: top battle scene, then status, spell cards, selected spell analysis, and event log.
+- Spell cards may scroll internally when the number of cards grows.
 
 ## Typography
 
-- System sans stack with Korean fallback.
-- Headings: semibold, compact line height.
-- Widget titles: 15px semibold.
-- Body text: 13px to 14px.
-- Utility labels: 11px to 12px.
-- Clock: monospace tabular numerals.
+- Korean system sans stack.
+- Large headings for screen titles.
+- Compact headings inside cards and panels.
+- Formula text should be bold and readable.
+- Long card explanations should be clamped or wrapped without overlap.
 
 ## Colors
 
-- Background: `#101113`.
-- Panel: `#17191d`.
-- Strong panel: `#1e2227`.
-- Text: `#f5f7f2`.
-- Muted text: `#aab4a3`.
-- Teal accent: `#4fd1c5`.
-- Gold accent: `#f5c76b`.
-- Rose accent: `#ef8aa0`.
-- Green accent: `#8bd17c`.
+- Parchment panel: warm beige and brown.
+- Button primary: amber/brown.
+- Success: green/gold.
+- Warning/danger: red/orange.
+- Magic: cyan/violet/gold.
+- Element cubes:
+  - H: white
+  - O: blue
+  - C: black/gray
+  - N: green
+  - Cl: yellow-green
+  - D: red
 
 ## Components
 
-- `WidgetCard`: title, optional subtitle, body, optional footer.
-- `WidgetCard` editable variant: hover hint, pointer cursor, subtle border/surface lift.
-- `EditorModal`: shared modal for card editing.
-- `SettingsPanel`: side panel for display and teacher settings.
-- Buttons: compact rounded rectangle, shared focus ring, no browser-default typography.
-- Progress bars: neutral track with teal fill.
-- Status badges: small rounded labels with semantic color.
-- Text areas: dark inset surface with visible focus state.
+- `ElementCube`: colored cube with letter label.
+- `SpellCard`: formula card with name, attack power, formula, required cubes, and explanation.
+- `ReactionAnalysis`: selected spell formula, required atoms, product arrangement, and atom count table.
+- `BattleScene`: wizard/dragon background, HP bar, cube generation, and spell effect image.
+- `GameGuideModal`: compact in-game help.
 
 ## States
 
-- Loading: centered local JSON loading indicator.
-- Empty: dashed quiet panel with plain Korean copy.
-- Error: rose emphasis and retry action.
-- Saving: disabled controls where a duplicate write could happen.
-- Editable: hover hint says "클릭해서 수정".
-- Unsaved modal close: confirm before discarding changes.
+- Empty cube rows show Korean empty-state copy.
+- Castable spell cards glow.
+- Locked spell cards stay visible and show missing cubes.
+- Dragon cube danger triggers text feedback and animation.
+- Victory/defeat screens summarize learning and strategy.
 
 ## Accessibility
 
-- Preserve focus-visible outlines.
-- Keep contrast high on dark theme.
-- Use semantic buttons and labels for interactive controls.
-- Avoid motion-heavy behavior; spinner is the only active animation.
+- Buttons use semantic `button` elements.
+- Focus outlines must stay visible.
+- Cube letters are required so color is not the only cue.
+- Important feedback appears as readable Korean text.

@@ -1136,6 +1136,12 @@
   background: linear-gradient(135deg, #6ee37c, #278239);
 }
 
+.cube-cl {
+  background: linear-gradient(135deg, #dbf878, #66b12f);
+  color: #1d3b13;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
 .cube-d {
   background: linear-gradient(135deg, #ff6b42, #a81e1e);
 }
@@ -1227,6 +1233,30 @@
 
 .spell-card:nth-child(6) {
   animation-delay: 250ms;
+}
+
+.spell-card:nth-child(7) {
+  animation-delay: 300ms;
+}
+
+.spell-card:nth-child(8) {
+  animation-delay: 350ms;
+}
+
+.spell-card:nth-child(9) {
+  animation-delay: 400ms;
+}
+
+.spell-card:nth-child(10) {
+  animation-delay: 450ms;
+}
+
+.spell-card:nth-child(11) {
+  animation-delay: 500ms;
+}
+
+.spell-card:nth-child(12) {
+  animation-delay: 550ms;
 }
 
 .spell-card:hover {
