@@ -1197,8 +1197,9 @@
   position: relative;
   display: grid;
   align-content: start;
+  flex: 0 0 auto;
   width: 100%;
-  min-height: auto;
+  min-height: 272px;
   box-sizing: border-box;
   gap: 0.36rem;
   border-width: 2px;
@@ -1926,7 +1927,7 @@
   }
 
   .spell-card {
-    min-height: 118px;
+    min-height: 248px;
   }
 
   .element-cube {
