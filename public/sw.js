@@ -1,4 +1,4 @@
-const CACHE_NAME = 'chemistry-dragon-molecule-v4';
+const CACHE_NAME = 'chemistry-dragon-molecule-v5';
 const APP_SHELL = [
   './',
   './index.html',

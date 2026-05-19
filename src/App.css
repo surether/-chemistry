@@ -1198,8 +1198,9 @@
   display: grid;
   align-content: start;
   flex: 0 0 auto;
+  grid-template-rows: minmax(3.05rem, auto) auto auto auto auto auto;
   width: 100%;
-  min-height: 272px;
+  min-height: 288px;
   box-sizing: border-box;
   gap: 0.36rem;
   border-width: 2px;
@@ -1284,15 +1285,20 @@
 
 .spell-card-top {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 0.35rem;
+  min-height: 3.05rem;
 }
 
 .spell-card strong {
+  display: inline-flex;
+  align-items: center;
   color: #2a150c;
   font-size: 0.92rem;
   font-weight: 1000;
+  line-height: 1.18;
+  min-height: 1.55rem;
   overflow-wrap: anywhere;
 }
 
@@ -1301,22 +1307,24 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 0.32rem;
+  min-height: 2.25rem;
   min-width: 0;
 }
 
 .spell-damage-badge {
   display: inline-flex;
   align-items: center;
-  min-height: 1.25rem;
+  min-height: 1.55rem;
   border: 2px solid rgba(34, 109, 65, 0.45);
   border-radius: 999px;
   background: linear-gradient(180deg, rgba(220, 255, 198, 0.92), rgba(137, 219, 117, 0.88));
   color: #13542d;
   font-size: 0.66rem;
   font-weight: 1000;
-  line-height: 1;
-  padding: 0.14rem 0.38rem;
+  line-height: 1.15;
+  padding: 0.2rem 0.42rem;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.52);
+  white-space: nowrap;
 }
 
 .spell-card-top span,
@@ -1331,7 +1339,10 @@
 }
 
 .spell-card-top > span:last-child {
+  align-self: center;
   flex: 0 0 auto;
+  line-height: 1.15;
+  white-space: nowrap;
 }
 
 .spell-card-top .spell-damage-badge {
@@ -1927,7 +1938,7 @@
   }
 
   .spell-card {
-    min-height: 248px;
+    min-height: 260px;
   }
 
   .element-cube {

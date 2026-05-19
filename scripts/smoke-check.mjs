@@ -117,6 +117,6 @@ assert(appSource.includes('...Array(8).fill("D")'), 'Initial bag must contain 8 
 assert(!appSource.includes('reactants:'), 'Molecule spell data must not use reactants');
 assert(!appSource.includes('products:'), 'Molecule spell data must not use products');
 assert(!appSource.includes('equation:'), 'Molecule spell data must not use equation');
-assert(fs.readFileSync(path.join(root, 'public', 'sw.js'), 'utf8').includes('chemistry-dragon-molecule-v4'), 'Service worker cache must be bumped for molecule cards');
+assert(fs.readFileSync(path.join(root, 'public', 'sw.js'), 'utf8').includes('chemistry-dragon-molecule-v5'), 'Service worker cache must be bumped for molecule cards');
 
 console.log('smoke-check ok');
