@@ -83,4 +83,21 @@ for (const file of dataFiles) {
   JSON.parse(fs.readFileSync(filePath, 'utf8'));
 }
 
+const appSource = fs.readFileSync(path.join(root, 'src', 'App.jsx'), 'utf8');
+const expectedFormulas = ['H₂', 'O₂', 'N₂', 'CO₂', 'O₃', 'CO', 'H₂O', 'H₂O₂', 'CH₄', 'NH₃', 'HCl', 'C₆H₁₂O₆'];
+
+for (const formula of expectedFormulas) {
+  assert(appSource.includes(`formula: "${formula}"`), `Missing molecule spell formula: ${formula}`);
+}
+
+assert(appSource.includes('...Array(20).fill("H")'), 'Initial bag must contain 20 H cubes');
+assert(appSource.includes('...Array(18).fill("O")'), 'Initial bag must contain 18 O cubes');
+assert(appSource.includes('...Array(8).fill("C")'), 'Initial bag must contain 8 C cubes');
+assert(appSource.includes('...Array(8).fill("N")'), 'Initial bag must contain 8 N cubes');
+assert(appSource.includes('...Array(4).fill("Cl")'), 'Initial bag must contain 4 Cl cubes');
+assert(appSource.includes('...Array(8).fill("D")'), 'Initial bag must contain 8 D cubes');
+assert(!appSource.includes('reactants:'), 'Molecule spell data must not use reactants');
+assert(!appSource.includes('products:'), 'Molecule spell data must not use products');
+assert(!appSource.includes('equation:'), 'Molecule spell data must not use equation');
+
 console.log('smoke-check ok');

@@ -14,29 +14,30 @@ import spellWaterBomb from "./assets/spell-water-bomb.png";
 import "./App.css";
 
 const DRAGON_MAX_HP = 18;
+const DEFAULT_SPELL_ID = "hydro-slash";
 
 const INITIAL_BAG = [
-  ...Array(30).fill("H"),
-  ...Array(26).fill("O"),
-  ...Array(16).fill("C"),
-  ...Array(10).fill("N"),
-  ...Array(8).fill("Cl"),
-  ...Array(9).fill("D"),
+  ...Array(20).fill("H"),
+  ...Array(18).fill("O"),
+  ...Array(8).fill("C"),
+  ...Array(8).fill("N"),
+  ...Array(4).fill("Cl"),
+  ...Array(8).fill("D"),
 ];
 
 const SPELL_EFFECT_IMAGES = {
-  "hydrogen-wisp": spellLightningAqua,
-  "water-guard": spellWaterBomb,
-  "oxygen-gale": spellLightningAqua,
-  "peroxide-spark": spellWaterBomb,
-  "nitrogen-seal": spellAmmoniaVeil,
+  "hydro-slash": spellLightningAqua,
+  "oxy-blade": spellLightningAqua,
+  "nitro-barrier": spellAmmoniaVeil,
+  "carbon-smoke": spellCarbonMist,
+  "carbon-burst": spellCarbonBurst,
+  "ozone-spark": spellLightningAqua,
+  "water-bomb": spellWaterBomb,
+  "peroxide-flash": spellWaterBomb,
+  "methane-inferno": spellMethaneInferno,
   "ammonia-veil": spellAmmoniaVeil,
-  "carbon-dioxide-fog": spellCarbonMist,
-  "methane-flame": spellMethaneInferno,
-  "ozone-barrier": spellLightningAqua,
-  "hydrogen-chloride-sting": spellCarbonBurst,
-  "carbon-monoxide-shadow": spellCarbonMist,
-  "glucose-star": spellWaterBomb,
+  "acid-sting": spellCarbonBurst,
+  "glucose-nova": spellWaterBomb,
 };
 
 const BACKGROUND_MUSIC = [
@@ -53,165 +54,163 @@ const ELEMENTS = {
   D: { name: "드래곤", label: "드래곤 큐브", short: "D" },
 };
 
-function makeCubes(counts) {
-  return Object.entries(counts).flatMap(([cube, count]) => Array(count).fill(cube));
+function cubesFromRequirements(requiredCubes) {
+  return Object.entries(requiredCubes).flatMap(([cube, count]) => Array(count).fill(cube));
+}
+
+function formatRequiredCubes(requiredCubes) {
+  return Object.entries(requiredCubes)
+    .map(([cube, count]) => `${ELEMENTS[cube]?.short ?? cube} × ${count}`)
+    .join(", ");
+}
+
+function joinKoreanList(items) {
+  if (items.length <= 1) {
+    return items[0] ?? "";
+  }
+
+  return `${items.slice(0, -1).join(", ")}와 ${items[items.length - 1]}`;
+}
+
+function getMoleculeSentence(spell) {
+  const atomPhrases = Object.entries(spell.requiredCubes).map(
+    ([cube, count]) => `${ELEMENTS[cube]?.name ?? cube} 원자 ${count}개`,
+  );
+
+  return `${spell.formula}는 ${joinKoreanList(atomPhrases)}로 이루어져 있습니다.`;
 }
 
 const SPELLS = [
   {
-    id: "hydrogen-wisp",
-    name: "수소 위스프",
-    subtitle: "수소 기체 H₂",
-    level: 1,
+    id: "hydro-slash",
+    formula: "H₂",
+    name: "하이드로 슬래시",
+    requiredCubes: { H: 2 },
     damage: 1,
-    equation: "2H → H₂",
-    reactants: makeCubes({ H: 2 }),
-    products: makeCubes({ H: 2 }),
-    explanation:
-      "수소 원자 2개가 모여 수소 기체 분자 H₂를 이룹니다. H 원자 수는 완성 전후 모두 2개입니다.",
+    difficulty: "쉬움",
+    description: "수소 원자 2개를 모아 수소 기체 주문을 완성합니다.",
+    attackDescription: "가벼운 수소 에너지가 날카로운 파동으로 변해 드래곤을 공격합니다.",
   },
   {
-    id: "water-guard",
-    name: "워터 가드",
-    subtitle: "물 H₂O",
-    level: 1,
+    id: "oxy-blade",
+    formula: "O₂",
+    name: "옥시 블레이드",
+    requiredCubes: { O: 2 },
+    damage: 1,
+    difficulty: "쉬움",
+    description: "산소 원자 2개를 모아 산소 기체 주문을 완성합니다.",
+    attackDescription: "맑은 산소의 칼날이 드래곤을 베어냅니다.",
+  },
+  {
+    id: "nitro-barrier",
+    formula: "N₂",
+    name: "나이트로 배리어",
+    requiredCubes: { N: 2 },
     damage: 2,
-    equation: "2H + O → H₂O",
-    reactants: makeCubes({ H: 2, O: 1 }),
-    products: ["H", "O", "H"],
-    explanation:
-      "물 분자 H₂O는 수소 원자 2개와 산소 원자 1개로 이루어집니다. H는 2개, O는 1개로 같습니다.",
+    difficulty: "보통",
+    description: "질소 원자 2개를 모아 질소 기체 주문을 완성합니다.",
+    attackDescription: "질소의 안정적인 장막이 드래곤의 공격을 밀어냅니다.",
   },
   {
-    id: "oxygen-gale",
-    name: "산소 게일",
-    subtitle: "산소 기체 O₂",
-    level: 1,
-    damage: 1,
-    equation: "2O → O₂",
-    reactants: makeCubes({ O: 2 }),
-    products: makeCubes({ O: 2 }),
-    explanation:
-      "산소 기체 분자 O₂는 산소 원자 2개로 이루어집니다. O 원자 수는 완성 전후 모두 2개입니다.",
+    id: "carbon-smoke",
+    formula: "CO",
+    name: "카본 스모크",
+    requiredCubes: { C: 1, O: 1 },
+    damage: 2,
+    difficulty: "보통",
+    description: "탄소 원자 1개와 산소 원자 1개로 일산화탄소 주문을 완성합니다.",
+    attackDescription: "검은 연기가 퍼지며 드래곤의 시야를 가립니다.",
   },
   {
-    id: "peroxide-spark",
-    name: "퍼옥사이드 스파크",
-    subtitle: "과산화수소 H₂O₂",
-    level: 2,
+    id: "carbon-burst",
+    formula: "CO₂",
+    name: "카본 버스트",
+    requiredCubes: { C: 1, O: 2 },
     damage: 3,
-    equation: "2H + 2O → H₂O₂",
-    reactants: makeCubes({ H: 2, O: 2 }),
-    products: ["H", "O", "O", "H"],
-    explanation:
-      "과산화수소 H₂O₂는 수소 2개와 산소 2개로 이루어집니다. 두 원자의 개수는 완성 전후에 같습니다.",
+    difficulty: "보통",
+    description: "탄소 원자 1개와 산소 원자 2개로 이산화탄소 주문을 완성합니다.",
+    attackDescription: "압축된 탄소 에너지가 폭발하며 드래곤에게 피해를 줍니다.",
   },
   {
-    id: "nitrogen-seal",
-    name: "질소 봉인",
-    subtitle: "질소 기체 N₂",
-    level: 1,
-    damage: 1,
-    equation: "2N → N₂",
-    reactants: makeCubes({ N: 2 }),
-    products: makeCubes({ N: 2 }),
-    explanation:
-      "질소 기체 분자 N₂는 질소 원자 2개로 이루어집니다. N 원자 수는 완성 전후 모두 2개입니다.",
+    id: "ozone-spark",
+    formula: "O₃",
+    name: "오존 스파크",
+    requiredCubes: { O: 3 },
+    damage: 3,
+    difficulty: "보통",
+    description: "산소 원자 3개로 오존 주문을 완성합니다.",
+    attackDescription: "보라빛 오존 전격이 드래곤을 관통합니다.",
+  },
+  {
+    id: "water-bomb",
+    formula: "H₂O",
+    name: "워터 밤",
+    requiredCubes: { H: 2, O: 1 },
+    damage: 3,
+    difficulty: "보통",
+    description: "수소 원자 2개와 산소 원자 1개로 물 주문을 완성합니다.",
+    attackDescription: "푸른 물 폭발이 드래곤을 밀어냅니다.",
+  },
+  {
+    id: "peroxide-flash",
+    formula: "H₂O₂",
+    name: "퍼옥사이드 플래시",
+    requiredCubes: { H: 2, O: 2 },
+    damage: 4,
+    difficulty: "어려움",
+    description: "수소 원자 2개와 산소 원자 2개로 과산화수소 주문을 완성합니다.",
+    attackDescription: "하얀 빛과 거품이 터지며 드래곤을 공격합니다.",
+  },
+  {
+    id: "methane-inferno",
+    formula: "CH₄",
+    name: "메테인 인페르노",
+    requiredCubes: { C: 1, H: 4 },
+    damage: 4,
+    difficulty: "어려움",
+    description: "탄소 원자 1개와 수소 원자 4개로 메테인 주문을 완성합니다.",
+    attackDescription: "강한 화염 마법이 드래곤에게 직접 피해를 줍니다.",
   },
   {
     id: "ammonia-veil",
+    formula: "NH₃",
     name: "암모니아 베일",
-    subtitle: "암모니아 NH₃",
-    level: 2,
-    damage: 3,
-    equation: "N + 3H → NH₃",
-    reactants: makeCubes({ N: 1, H: 3 }),
-    products: ["N", "H", "H", "H"],
-    explanation:
-      "암모니아 NH₃는 질소 원자 1개와 수소 원자 3개로 이루어집니다. N은 1개, H는 3개로 같습니다.",
-  },
-  {
-    id: "carbon-dioxide-fog",
-    name: "이산화탄소 안개",
-    subtitle: "이산화탄소 CO₂",
-    level: 2,
-    damage: 3,
-    equation: "C + 2O → CO₂",
-    reactants: makeCubes({ C: 1, O: 2 }),
-    products: ["O", "C", "O"],
-    explanation:
-      "이산화탄소 CO₂는 탄소 원자 1개와 산소 원자 2개로 이루어집니다. C는 1개, O는 2개로 같습니다.",
-  },
-  {
-    id: "methane-flame",
-    name: "메테인 플레임",
-    subtitle: "메테인 CH₄",
-    level: 2,
+    requiredCubes: { N: 1, H: 3 },
     damage: 4,
-    equation: "C + 4H → CH₄",
-    reactants: makeCubes({ C: 1, H: 4 }),
-    products: ["H", "H", "C", "H", "H"],
-    explanation:
-      "메테인 CH₄는 탄소 원자 1개와 수소 원자 4개로 이루어집니다. C는 1개, H는 4개로 같습니다.",
+    difficulty: "어려움",
+    description: "질소 원자 1개와 수소 원자 3개로 암모니아 주문을 완성합니다.",
+    attackDescription: "녹색 안개가 퍼지며 드래곤을 약화시킵니다.",
   },
   {
-    id: "ozone-barrier",
-    name: "오존 배리어",
-    subtitle: "오존 O₃",
-    level: 2,
-    damage: 3,
-    equation: "3O → O₃",
-    reactants: makeCubes({ O: 3 }),
-    products: makeCubes({ O: 3 }),
-    explanation:
-      "오존 O₃는 산소 원자 3개가 모인 분자입니다. O 원자 수는 완성 전후 모두 3개입니다.",
-  },
-  {
-    id: "hydrogen-chloride-sting",
-    name: "염화수소 가시",
-    subtitle: "염화수소 HCl",
-    level: 2,
-    damage: 3,
-    equation: "H + Cl → HCl",
-    reactants: makeCubes({ H: 1, Cl: 1 }),
-    products: ["H", "Cl"],
-    explanation:
-      "염화수소 HCl은 수소 원자 1개와 염소 원자 1개로 이루어집니다. H와 Cl은 각각 1개입니다.",
-  },
-  {
-    id: "carbon-monoxide-shadow",
-    name: "일산화탄소 그림자",
-    subtitle: "일산화탄소 CO",
-    level: 2,
-    damage: 2,
-    equation: "C + O → CO",
-    reactants: makeCubes({ C: 1, O: 1 }),
-    products: ["C", "O"],
-    explanation:
-      "일산화탄소 CO는 탄소 원자 1개와 산소 원자 1개로 이루어집니다. C와 O는 각각 1개입니다.",
-  },
-  {
-    id: "glucose-star",
-    name: "포도당 별빛",
-    subtitle: "포도당 C₆H₁₂O₆",
-    level: 4,
+    id: "acid-sting",
+    formula: "HCl",
+    name: "애시드 스팅",
+    requiredCubes: { H: 1, Cl: 1 },
     damage: 5,
-    equation: "6C + 12H + 6O → C₆H₁₂O₆",
-    reactants: makeCubes({ C: 6, H: 12, O: 6 }),
-    products: ["C", "H", "O", "H", "C", "H", "O", "H", "C", "H", "O", "H", "C", "H", "O", "H", "C", "H", "O", "H", "C", "H", "O", "H"],
-    explanation:
-      "포도당 C₆H₁₂O₆는 탄소 6개, 수소 12개, 산소 6개로 이루어진 큰 분자입니다. 모든 원자 수가 완성 전후에 같습니다.",
+    difficulty: "희귀",
+    description: "수소 큐브 1개와 염소 큐브 1개로 염화수소 주문을 완성합니다. Cl 큐브가 희귀하기 때문에 완성 난이도가 높습니다.",
+    attackDescription: "산성 마법 화살이 드래곤의 비늘을 부식시켜 큰 피해를 줍니다.",
+  },
+  {
+    id: "glucose-nova",
+    formula: "C₆H₁₂O₆",
+    name: "글루코스 노바",
+    requiredCubes: { C: 6, H: 12, O: 6 },
+    damage: 10,
+    difficulty: "필살기",
+    description: "탄소 6개, 수소 12개, 산소 6개로 포도당 주문을 완성합니다.",
+    attackDescription: "거대한 생명 에너지가 폭발하며 드래곤에게 치명타를 줍니다.",
   },
 ];
 
 const GUIDE_SECTIONS = [
   {
     title: "게임 목표",
-    body: "화학 마법사가 되어 원소 큐브를 모으고 분자식 주문을 완성합니다. 주문이 성공하면 드래곤 체력이 줄어듭니다.",
+    body: "화학 마법사가 되어 원자 큐브를 모으고 분자식 주문을 완성합니다. 주문이 성공하면 드래곤 체력이 줄어듭니다.",
   },
   {
-    title: "원소 큐브란?",
-    body: "수소 H, 산소 O, 탄소 C, 질소 N, 염소 Cl 큐브는 분자를 이루는 원자를 뜻합니다. 드래곤 큐브는 위험 큐브입니다.",
+    title: "원자 큐브란?",
+    body: "수소 H, 산소 O, 탄소 C, 질소 N, 염소 Cl 큐브는 각각 원자 하나를 뜻합니다. 드래곤 큐브는 위험 큐브입니다.",
   },
   {
     title: "차례 진행 방법",
@@ -219,15 +218,15 @@ const GUIDE_SECTIONS = [
   },
   {
     title: "드래곤 큐브의 위험",
-    body: "드래곤 큐브가 나오면 이번 차례에 뽑은 원소 큐브를 모두 잃습니다. 많이 뽑을수록 보상과 위험이 함께 커집니다.",
+    body: "드래곤 큐브가 나오면 이번 차례에 뽑은 원자 큐브를 모두 잃습니다. 많이 뽑을수록 보상과 위험이 함께 커집니다.",
   },
   {
     title: "주문 카드와 분자식",
-    body: "주문 카드는 H₂, H₂O, NH₃, CO₂ 같은 분자식을 보여줍니다. 보관 큐브가 분자식에 필요한 원자 조건을 만족하면 주문을 시전할 수 있습니다.",
+    body: "주문 카드는 H₂, CO₂, H₂O 같은 분자식입니다. 보관 큐브가 분자식에 필요한 원자 큐브 조건을 만족하면 주문을 시전할 수 있습니다.",
   },
   {
-    title: "반응 전후 원자 수 비교",
-    body: "원소 큐브가 분자식 모양으로 배열되어도 원자의 종류와 개수는 변하지 않습니다. 표에서 완성 전후를 비교하세요.",
+    title: "분자식 분석",
+    body: "분자식은 원자의 종류와 개수를 기호와 작은 숫자로 나타낸 것입니다. 분석 패널에서 필요한 큐브를 확인하세요.",
   },
   {
     title: "승리와 패배 조건",
@@ -236,54 +235,59 @@ const GUIDE_SECTIONS = [
 ];
 
 const GAME_GUIDE_SECTIONS = [
-  { title: "게임 목표", body: "원소 큐브를 모아 분자식 주문을 완성하고 드래곤 체력을 0으로 만드세요." },
+  { title: "게임 목표", body: "원자 큐브를 모아 분자식 주문을 완성하고 드래곤 체력을 0으로 만드세요." },
   { title: "큐브 설명", body: "H는 수소, O는 산소, C는 탄소, N은 질소, Cl은 염소입니다. D는 이번 차례 큐브를 잃게 하는 드래곤 큐브입니다." },
   { title: "차례 진행 방법", body: "큐브를 뽑다가 멈추면 마지막 큐브 1개를 버리고 나머지를 보관합니다." },
-  { title: "드래곤 큐브 규칙", body: "D가 나오면 D와 이번 차례 원소 큐브가 모두 버린 큐브로 이동합니다." },
+  { title: "드래곤 큐브 규칙", body: "D가 나오면 D와 이번 차례 원자 큐브가 모두 버린 큐브로 이동합니다." },
   { title: "주문 카드 사용 방법", body: "보관 큐브가 주문 카드의 분자식 조건을 만족하면 주문 시전 버튼이 활성화됩니다." },
-  { title: "분자식 학습 포인트", body: "분자식의 아래 작은 숫자는 그 원자가 몇 개 들어 있는지 보여줍니다. 완성 전후 원자 종류와 개수는 같습니다." },
+  { title: "분자식 학습 포인트", body: "분자식의 아래 작은 숫자는 그 원자가 몇 개 들어 있는지 보여줍니다. 예를 들어 H₂O는 H 2개와 O 1개가 필요합니다." },
   { title: "승리와 패배", body: "주문 피해로 드래곤 체력을 0으로 만들면 승리, 주머니가 먼저 비면 패배입니다." },
 ];
 
 const TUTORIAL_STEPS = [
   {
     title: "1. 게임 목표",
-    text: "당신은 화학 마법사입니다. 원소 큐브를 모아 분자식 주문을 완성하고 드래곤의 체력을 0으로 만드세요.",
+    text: "원자 큐브를 모아 분자식 주문을 완성하고 드래곤의 체력을 0으로 만드세요.",
     highlight: "goal",
   },
   {
-    title: "2. 원소 큐브",
-    text: "H는 수소, O는 산소, C는 탄소, N은 질소, Cl은 염소입니다. 큐브는 분자를 이루는 원자를 나타냅니다.",
+    title: "2. 원자 큐브",
+    text: "H는 수소, O는 산소, C는 탄소, N은 질소, Cl은 염소입니다. 큐브 하나는 원자 하나를 뜻합니다.",
     highlight: "cubes",
   },
   {
-    title: "3. 큐브 뽑기",
+    title: "3. 분자식 주문",
+    text: "H₂, CO₂, H₂O처럼 표시된 분자식이 주문 카드입니다. 분자식에 적힌 원자 수만큼 큐브를 모아야 합니다.",
+    highlight: "spell",
+  },
+  {
+    title: "4. 예시",
+    text: "H₂O 주문은 H 큐브 2개와 O 큐브 1개가 필요합니다. CO₂ 주문은 C 큐브 1개와 O 큐브 2개가 필요합니다.",
+    highlight: "analysis",
+  },
+  {
+    title: "5. 큐브 뽑기",
     text: "자기 차례에는 큐브를 원하는 만큼 뽑을 수 있습니다. 많이 뽑으면 주문을 완성하기 쉬워집니다.",
     highlight: "draw",
   },
   {
-    title: "4. 멈추기",
-    text: "뽑기를 멈추면 마지막으로 뽑은 원소 큐브 1개는 버리고, 나머지 큐브는 보관합니다.",
+    title: "6. 멈추기",
+    text: "멈추면 마지막으로 뽑은 원자 큐브 1개는 버리고, 나머지 큐브는 보관합니다.",
     highlight: "stop",
   },
   {
-    title: "5. 드래곤 큐브",
-    text: "드래곤 큐브를 뽑으면 이번 차례에 뽑은 원소 큐브를 모두 잃습니다. 계속 뽑을지 멈출지 판단하세요.",
+    title: "7. 드래곤 큐브",
+    text: "드래곤 큐브가 나오면 이번 차례에 뽑은 원자 큐브를 모두 잃습니다.",
     highlight: "dragon",
   },
   {
-    title: "6. 주문 시전",
-    text: "보관한 원소 큐브가 주문 카드의 분자식 조건을 만족하면 주문을 시전할 수 있습니다.",
+    title: "8. 주문 시전",
+    text: "보관한 큐브가 분자식의 필요 큐브를 만족하면 주문을 시전해 드래곤에게 피해를 줄 수 있습니다.",
     highlight: "spell",
   },
   {
-    title: "7. 분자식 이해",
-    text: "주문을 시전하면 원소 큐브가 분자식 모양으로 배열됩니다. 이때 원자의 종류와 개수는 완성 전후에 같습니다.",
-    highlight: "analysis",
-  },
-  {
-    title: "8. 승리 조건",
-    text: "주문을 성공시켜 드래곤 체력을 0으로 만들면 승리합니다. 주머니가 먼저 비면 패배합니다.",
+    title: "9. 승리 조건",
+    text: "드래곤 체력을 0으로 만들면 승리합니다. 주머니가 먼저 비면 패배합니다.",
     highlight: "win",
   },
 ];
@@ -304,7 +308,7 @@ export function shuffle(array) {
   return result;
 }
 
-export function countElements(cubes) {
+export function countCubes(cubes) {
   return cubes.reduce(
     (counts, cube) => ({
       ...counts,
@@ -314,49 +318,44 @@ export function countElements(cubes) {
   );
 }
 
+export function countElements(cubes) {
+  return countCubes(cubes);
+}
+
 export function canCastSpell(spell, keptCubes) {
-  const keptCounts = countElements(keptCubes);
-  const requiredCounts = countElements(spell.reactants);
+  const keptCounts = countCubes(keptCubes);
 
-  return Object.entries(requiredCounts).every(([cube, required]) => (keptCounts[cube] ?? 0) >= required);
+  return Object.entries(spell.requiredCubes).every(([cube, required]) => (keptCounts[cube] ?? 0) >= required);
 }
 
-export function getAtomComparison(spell) {
-  const before = countElements(spell.reactants);
-  const after = countElements(spell.products);
-  const atoms = Array.from(new Set([...Object.keys(before), ...Object.keys(after)])).sort();
+function getMissingCubes(spell, keptCubes) {
+  const keptCounts = countCubes(keptCubes);
 
-  return atoms.map((atom) => ({
-    atom,
-    before: before[atom] ?? 0,
-    after: after[atom] ?? 0,
-    matches: (before[atom] ?? 0) === (after[atom] ?? 0),
-  }));
-}
-
-function getMissingReactants(spell, keptCubes) {
-  const keptCounts = countElements(keptCubes);
-  const requiredCounts = countElements(spell.reactants);
-
-  return Object.entries(requiredCounts)
+  return Object.entries(spell.requiredCubes)
     .map(([cube, required]) => ({
       cube,
+      required,
+      current: keptCounts[cube] ?? 0,
       missing: Math.max(required - (keptCounts[cube] ?? 0), 0),
     }))
     .filter((item) => item.missing > 0);
 }
 
 function removeRequiredCubes(keptCubes, requiredCubes) {
-  const remaining = [...keptCubes];
+  const remainingRequirements = { ...requiredCubes };
+  const remaining = [];
+  const used = [];
 
-  requiredCubes.forEach((cube) => {
-    const targetIndex = remaining.indexOf(cube);
-    if (targetIndex >= 0) {
-      remaining.splice(targetIndex, 1);
+  for (const cube of keptCubes) {
+    if ((remainingRequirements[cube] ?? 0) > 0) {
+      remainingRequirements[cube] -= 1;
+      used.push(cube);
+    } else {
+      remaining.push(cube);
     }
-  });
+  }
 
-  return remaining;
+  return { remaining, used };
 }
 
 function ElementCube({ type, small = false, muted = false }) {
@@ -459,9 +458,9 @@ function StartScreen({ onGuide }) {
     <section className="screen start-screen">
       <BattleScene dragonHp={DRAGON_MAX_HP} showTitle />
       <div className="start-copy">
-        <p className="teacher-note">중학교 과학 · 화학 반응식 학습 게임</p>
-        <h1>케미술사: 드래곤의 반응식</h1>
-        <p>원소 큐브를 모아 화학 반응식 주문을 완성하고 드래곤을 물리치세요.</p>
+        <p className="teacher-note">중학교 과학 · 분자식 학습 게임</p>
+        <h1>케미술사: 드래곤의 분자식</h1>
+        <p>원자 큐브를 모아 분자식 주문을 완성하고 드래곤을 물리치세요.</p>
         <div className="button-row">
           <button className="fantasy-button primary" type="button" onClick={onGuide}>
             게임 시작
@@ -524,7 +523,7 @@ function GuideScreen({ guideTopic, setGuideTopic, onBack, onTutorial, onPlay }) 
             <ElementCube type="Cl" />
             <ElementCube type="D" />
           </div>
-          <p className="science-note">반응식은 원자가 새로 생기거나 사라지지 않고 다시 배열되는 과정을 보여줍니다.</p>
+          <p className="science-note">분자식은 원자의 종류와 개수를 기호로 나타낸 것입니다.</p>
         </article>
       </div>
     </section>
@@ -552,8 +551,8 @@ function TutorialScreen({ step, setStep, onBack, onPlay }) {
             <span>멈추기</span>
           </div>
           <div className={`mock-spell ${current.highlight === "spell" || current.highlight === "analysis" ? "is-highlighted" : ""}`}>
-            <strong>2H + O → H₂O</strong>
-            <small>원자 수 비교</small>
+            <strong>H₂O</strong>
+            <small>분자식 분석</small>
           </div>
         </div>
         <article className="parchment-card tutorial-card" key={current.title}>
@@ -601,6 +600,8 @@ function TutorialScreen({ step, setStep, onBack, onPlay }) {
 }
 
 function SpellCard({ spell, selected, castable, missing, onSelect }) {
+  const requiredCubeList = cubesFromRequirements(spell.requiredCubes);
+
   return (
     <button
       className={`spell-card ${selected ? "is-selected" : ""}${castable ? " is-castable" : " is-locked"}`}
@@ -612,58 +613,33 @@ function SpellCard({ spell, selected, castable, missing, onSelect }) {
           <strong>{spell.name}</strong>
           <span className="spell-damage-badge">공격력 {spell.damage}</span>
         </span>
-        <span>난이도 {spell.level}</span>
+        <span>난이도 {spell.difficulty}</span>
       </span>
-      <small>{spell.subtitle}</small>
-      <em>{spell.equation}</em>
+      <small>분자식 {spell.formula}</small>
+      <em>필요 큐브: {formatRequiredCubes(spell.requiredCubes)}</em>
       <span className="mini-cubes">
-        {spell.reactants.map((cube, index) => (
+        {requiredCubeList.map((cube, index) => (
           <ElementCube key={`${spell.id}-${cube}-${index}`} type={cube} small muted={!castable} />
         ))}
       </span>
-      <span className="spell-card-explanation">{spell.explanation}</span>
+      <span className="spell-card-explanation">{spell.description}</span>
+      <span className="spell-card-attack">{spell.attackDescription}</span>
       {missing.length > 0 ? (
         <span className="missing-line">
-          부족{" "}
+          부족한 큐브:{" "}
           {missing.map((item) => `${ELEMENTS[item.cube].short} ${item.missing}개`).join(", ")}
         </span>
       ) : (
-        <span className="ready-line">시전 가능</span>
+        <span className="ready-line">주문 시전 가능</span>
       )}
     </button>
   );
 }
 
-function AtomComparisonTable({ comparison }) {
-  const allMatch = comparison.every((row) => row.matches);
+function ReactionAnalysis({ spell, missing, castable, onCast, animationState, mobileActive }) {
+  const requiredCubeList = cubesFromRequirements(spell.requiredCubes);
+  const requirementRows = Object.entries(spell.requiredCubes);
 
-  return (
-    <div className="atom-panel">
-      <h3>원자 보존 비교</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>원소</th>
-            <th>반응 전</th>
-            <th>반응 후</th>
-          </tr>
-        </thead>
-        <tbody>
-          {comparison.map((row) => (
-            <tr key={row.atom} className={row.matches ? "is-matching" : ""}>
-              <td>{row.atom}</td>
-              <td>{row.before}</td>
-              <td>{row.after}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      {allMatch ? <p className="match-message">원자의 종류와 개수가 반응 전후에 같습니다.</p> : null}
-    </div>
-  );
-}
-
-function ReactionAnalysis({ spell, missing, castable, comparison, onCast, animationState, mobileActive }) {
   return (
     <section className={`game-panel analysis-panel ${animationState === "cast" ? "is-casting" : ""}`} data-mobile-active={mobileActive}>
       <div className="panel-heading">
@@ -675,25 +651,47 @@ function ReactionAnalysis({ spell, missing, castable, comparison, onCast, animat
           주문 시전
         </button>
       </div>
-      <div className="equation-banner">{spell.equation}</div>
-      <p className="spell-explanation">{spell.explanation}</p>
+      <div className="formula-banner">분자식: {spell.formula}</div>
+      <p className="science-note">분자식은 원자의 종류와 개수를 기호로 나타낸 것입니다.</p>
+      <p className="spell-explanation">{getMoleculeSentence(spell)}</p>
+      <p className="spell-explanation">{spell.description}</p>
       {missing.length > 0 ? (
-        <p className="warning-text">아직 필요한 원소 큐브가 부족합니다.</p>
+        <p className="warning-text">
+          부족한 큐브: {missing.map((item) => `${ELEMENTS[item.cube].short} ${item.missing}개`).join(", ")}
+        </p>
       ) : (
-        <p className="success-text">반응물 큐브가 준비되었습니다.</p>
+        <p className="success-text">주문 시전 가능</p>
       )}
       <div className="reaction-arrangement">
         <div>
-          <strong>반응 전 원자 수</strong>
-          <CubeGroup cubes={spell.reactants} compact emptyText="반응물이 없습니다." />
+          <strong>필요 원자 큐브</strong>
+          <CubeGroup cubes={requiredCubeList} compact emptyText="필요 큐브가 없습니다." />
         </div>
-        <span className="reaction-arrow">→</span>
         <div>
-          <strong>반응 후 원자 수</strong>
-          <CubeGroup cubes={spell.products} compact emptyText="생성물이 없습니다." />
+          <strong>공격 설명</strong>
+          <p>{spell.attackDescription}</p>
         </div>
       </div>
-      <AtomComparisonTable comparison={comparison} />
+      <div className="atom-panel">
+        <h3>분자식 분석</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>원자 큐브</th>
+              <th>필요 개수</th>
+            </tr>
+          </thead>
+          <tbody>
+            {requirementRows.map(([cube, count]) => (
+              <tr key={cube} className="is-matching">
+                <td>{ELEMENTS[cube]?.label ?? cube}</td>
+                <td>{count}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p className="match-message">필요 큐브: {formatRequiredCubes(spell.requiredCubes)}</p>
+      </div>
     </section>
   );
 }
@@ -757,18 +755,17 @@ function GameScreen({
   resetGame,
   changeScreen,
 }) {
-  const keptCounts = useMemo(() => countElements(keptCubes), [keptCubes]);
-  const discardedCounts = useMemo(() => countElements(discardedCubes), [discardedCubes]);
-  const selectedMissing = useMemo(() => getMissingReactants(selectedSpell, keptCubes), [keptCubes, selectedSpell]);
+  const keptCounts = useMemo(() => countCubes(keptCubes), [keptCubes]);
+  const discardedCounts = useMemo(() => countCubes(discardedCubes), [discardedCubes]);
+  const selectedMissing = useMemo(() => getMissingCubes(selectedSpell, keptCubes), [keptCubes, selectedSpell]);
   const selectedCanCast = selectedMissing.length === 0;
-  const comparison = useMemo(() => getAtomComparison(selectedSpell), [selectedSpell]);
 
   return (
     <section className={`screen game-screen ${animationState ? `is-${animationState}` : ""}`}>
       <header className="game-header">
         <div>
-          <p className="teacher-note">중학교 과학 · 원자 보존 전투</p>
-          <h1>케미술사: 드래곤의 반응식</h1>
+          <p className="teacher-note">중학교 과학 · 분자식 주문 전투</p>
+          <h1>케미술사: 드래곤의 분자식</h1>
         </div>
         <div className="button-row">
           <button className="fantasy-button secondary" type="button" onClick={() => setShowGameGuide(true)}>
@@ -785,7 +782,7 @@ function GameScreen({
       <BattleScene
         dragonHp={dragonHp}
         animationState={animationState}
-        attackCubes={selectedSpell.reactants}
+        attackCubes={cubesFromRequirements(selectedSpell.requiredCubes)}
         attackEffectSrc={SPELL_EFFECT_IMAGES[selectedSpell.id] ?? spellWaterBomb}
       />
       <div className="compact-tabs" role="tablist" aria-label="게임 패널">
@@ -807,7 +804,7 @@ function GameScreen({
           <div className="panel-heading">
             <div>
               <span>상태</span>
-              <h2>원소 주머니</h2>
+              <h2>원자 주머니</h2>
             </div>
             <strong className="bag-count">남은 큐브 {bag.length}</strong>
           </div>
@@ -836,7 +833,7 @@ function GameScreen({
           <div className="inventory-block">
             <div className="mini-heading">
               <strong>보관 큐브</strong>
-              <span>주문 재료</span>
+              <span>분자식 재료</span>
             </div>
             <CubeCounts counts={keptCounts} />
           </div>
@@ -864,7 +861,7 @@ function GameScreen({
           </div>
           <div className="spell-grid">
             {SPELLS.map((spell) => {
-              const missing = getMissingReactants(spell, keptCubes);
+              const missing = getMissingCubes(spell, keptCubes);
               return (
                 <SpellCard
                   key={spell.id}
@@ -882,7 +879,6 @@ function GameScreen({
           spell={selectedSpell}
           missing={selectedMissing}
           castable={selectedCanCast}
-          comparison={comparison}
           onCast={castSpell}
           animationState={animationState}
           mobileActive={mobileTab === "analysis"}
@@ -891,7 +887,7 @@ function GameScreen({
           <div className="panel-heading">
             <div>
               <span>사건 기록</span>
-              <h2>마법 반응 기록</h2>
+              <h2>주문 기록</h2>
             </div>
           </div>
           <div className={`message-banner ${animationState === "danger" ? "is-danger" : ""}`}>{message}</div>
@@ -913,7 +909,7 @@ function GameScreen({
 
 function ResultScreen({ gameStatus, castHistory, usedElementHistory, bag, resetGame, changeScreen }) {
   const won = gameStatus === "win";
-  const usedCounts = countElements(usedElementHistory);
+  const usedCounts = countCubes(usedElementHistory);
   const mostUsed = Object.entries(usedCounts).sort((a, b) => b[1] - a[1])[0];
   const mostUsedText = mostUsed ? `${ELEMENTS[mostUsed[0]].label} · ${mostUsed[1]}개` : "아직 사용한 큐브가 없습니다.";
 
@@ -921,10 +917,10 @@ function ResultScreen({ gameStatus, castHistory, usedElementHistory, bag, resetG
     <section className={`screen result-screen ${won ? "is-win" : "is-lose"}`}>
       <BattleScene dragonHp={won ? 0 : DRAGON_MAX_HP} animationState={won ? "win" : "lose"} showTitle />
       <article className="parchment-card result-card">
-        <p className="teacher-note">{won ? "반응식 주문 성공" : "전략 다시 세우기"}</p>
-        <h1>{won ? "승리! 화학 반응식 주문으로 드래곤을 물리쳤습니다." : "패배! 주머니의 큐브가 모두 떨어졌습니다."}</h1>
+        <p className="teacher-note">{won ? "분자식 주문 성공" : "전략 다시 세우기"}</p>
+        <h1>{won ? "승리! 분자식 주문으로 드래곤을 물리쳤습니다." : "패배! 주머니의 큐브가 모두 떨어졌습니다."}</h1>
         {won ? (
-          <p>반응물과 생성물의 원자 수를 비교하며 균형 잡힌 반응식을 완성했습니다.</p>
+          <p>원자 큐브를 모아 분자식을 완성하며 드래곤에게 강력한 주문을 시전했습니다.</p>
         ) : (
           <p>다음에는 너무 오래 뽑기보다 적절한 순간에 멈추는 전략이 필요합니다.</p>
         )}
@@ -938,11 +934,11 @@ function ResultScreen({ gameStatus, castHistory, usedElementHistory, bag, resetG
             <strong>{bag.length}개</strong>
           </div>
           <div>
-            <span>가장 많이 사용한 원소 큐브</span>
+            <span>가장 많이 사용한 원자 큐브</span>
             <strong>{mostUsedText}</strong>
           </div>
         </div>
-        <p className="science-note">화학 반응에서는 원자가 새로 생기거나 사라지지 않고, 반응 전후 원자의 종류와 개수가 같습니다.</p>
+        <p className="science-note">분자식은 원자의 종류와 개수를 기호로 나타낸 것입니다.</p>
         <div className="button-row">
           <button className="fantasy-button primary" type="button" onClick={() => resetGame("game")}>
             다시 시작
@@ -966,15 +962,15 @@ export default function App() {
   const [keptCubes, setKeptCubes] = useState([]);
   const [discardedCubes, setDiscardedCubes] = useState([]);
   const [dragonHp, setDragonHp] = useState(DRAGON_MAX_HP);
-  const [selectedSpellId, setSelectedSpellId] = useState("hydrogen-wisp");
-  const [message, setMessage] = useState("원소 큐브를 뽑아 주문의 재료를 모으세요. 멈추면 마지막 큐브 1개는 버립니다.");
+  const [selectedSpellId, setSelectedSpellId] = useState(DEFAULT_SPELL_ID);
+  const [message, setMessage] = useState("원자 큐브를 뽑아 주문의 재료를 모으세요. 멈추면 마지막 큐브 1개는 버립니다.");
   const [gameStatus, setGameStatus] = useState("playing");
   const [tutorialStep, setTutorialStep] = useState(0);
   const [showGameGuide, setShowGameGuide] = useState(false);
   const [eventLog, setEventLog] = useState([
     {
       id: "start-message",
-      text: "원소 큐브를 뽑아 주문의 재료를 모으세요. 멈추면 마지막 큐브 1개는 버립니다.",
+      text: "원자 큐브를 뽑아 주문의 재료를 모으세요. 멈추면 마지막 큐브 1개는 버립니다.",
       type: "info",
     },
   ]);
@@ -1159,13 +1155,13 @@ export default function App() {
   }
 
   function resetGame(nextScreen = "game") {
-    const startMessage = "원소 큐브를 뽑아 주문의 재료를 모으세요. 멈추면 마지막 큐브 1개는 버립니다.";
+    const startMessage = "원자 큐브를 뽑아 주문의 재료를 모으세요. 멈추면 마지막 큐브 1개는 버립니다.";
     setBag(shuffle(INITIAL_BAG));
     setTurnCubes([]);
     setKeptCubes([]);
     setDiscardedCubes([]);
     setDragonHp(DRAGON_MAX_HP);
-    setSelectedSpellId("hydrogen-wisp");
+    setSelectedSpellId(DEFAULT_SPELL_ID);
     setMessage(startMessage);
     setGameStatus("playing");
     setTutorialStep(0);
@@ -1198,7 +1194,7 @@ export default function App() {
       setTurnCubes([]);
       playSfx("danger");
       triggerAnimation("danger");
-      addEventLog("드래곤 큐브를 뽑았습니다! 이번 차례에 뽑은 원소 큐브를 모두 잃었습니다.", "danger");
+      addEventLog("드래곤 큐브를 뽑았습니다! 이번 차례에 뽑은 원자 큐브를 모두 잃었습니다.", "danger");
 
       if (remainingBag.length === 0 && dragonHp > 0) {
         finishGame("lose", "패배! 주머니의 큐브가 모두 떨어졌습니다.");
@@ -1261,24 +1257,24 @@ export default function App() {
     if (!canCastSpell(spell, keptCubes)) {
       playSfx("missing");
       triggerAnimation("missing");
-      addEventLog("아직 필요한 원소 큐브가 부족합니다.", "warning");
+      addEventLog("아직 필요한 원자 큐브가 부족합니다.", "warning");
       return;
     }
 
-    const nextKeptCubes = removeRequiredCubes(keptCubes, spell.reactants);
+    const { remaining, used } = removeRequiredCubes(keptCubes, spell.requiredCubes);
     const nextDragonHp = Math.max(0, dragonHp - spell.damage);
-    setKeptCubes(nextKeptCubes);
-    setDiscardedCubes((previous) => [...previous, ...spell.reactants]);
+    setKeptCubes(remaining);
+    setDiscardedCubes((previous) => [...previous, ...used]);
     setDragonHp(nextDragonHp);
     setCastHistory((previous) => [...previous, spell.id]);
-    setUsedElementHistory((previous) => [...previous, ...spell.reactants]);
+    setUsedElementHistory((previous) => [...previous, ...used]);
     playSfx("cast");
     window.setTimeout(() => playSfx("impact"), 2140);
     triggerAnimation("cast");
-    addEventLog(`주문 성공! ${spell.equation} 분자식 주문이 완성되었습니다. 드래곤에게 ${spell.damage} 피해를 입혔습니다.`, "success");
+    addEventLog(`주문 성공! ${spell.formula} 분자식을 완성했습니다. 드래곤에게 ${spell.damage} 피해를 입혔습니다.`, "success");
 
     if (nextDragonHp <= 0) {
-      finishGame("win", "승리! 화학 반응식 주문으로 드래곤을 물리쳤습니다.");
+      finishGame("win", "승리! 분자식 주문으로 드래곤을 물리쳤습니다.");
     }
   }
 

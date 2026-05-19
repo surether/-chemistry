@@ -2,7 +2,7 @@
 
 ## App Type
 
-Korean middle-school science fantasy learning game. The app teaches molecule formulas, atom counts, cube collection, and atom conservation through a wizard-versus-dragon battle.
+Korean middle-school science fantasy learning game. The app teaches molecule formulas, atom counts, and cube collection through a wizard-versus-dragon battle.
 
 ## Target Users
 
@@ -43,7 +43,7 @@ Korean middle-school science fantasy learning game. The app teaches molecule for
 2. Draw cubes and decide when to stop.
 3. Collect element cubes in inventory.
 4. Select a molecule spell card.
-5. Compare atom counts before and after the molecule formula is completed.
+5. Read the selected molecule formula analysis and required atom cubes.
 6. Cast spells to reduce dragon HP.
 7. Review feedback and restart after victory or defeat.
 
@@ -51,4 +51,4 @@ Korean middle-school science fantasy learning game. The app teaches molecule for
 
 - Exact classroom display size varies.
 - Chromebook PWA install availability depends on school policy.
-- Current molecule formula cards are intentionally formula-composition cards, not full real-world reaction equations.
+- Current molecule formula cards are intentionally formula-composition cards, not full real-world reaction systems.

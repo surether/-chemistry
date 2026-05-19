@@ -162,14 +162,14 @@ async function main() {
       }
     }
 
-    await waitFor("document.body.innerText.includes('케미술사: 드래곤의 반응식')", 'start screen');
+    await waitFor("document.body.innerText.includes('케미술사: 드래곤의 분자식')", 'start screen');
     await clickByText('게임 시작');
     await waitFor("document.body.innerText.includes('게임 상세 설명')", 'guide screen');
     await clickByText('바로 게임 시작');
     await waitFor("document.body.innerText.includes('드래곤 체력')", 'game screen');
     await waitFor("document.body.innerText.includes('주문 카드')", 'spell cards');
     await waitFor("document.body.innerText.includes('선택한 주문')", 'selected spell panel');
-    await waitFor("document.body.innerText.includes('원자의 종류와 개수가 반응 전후에 같습니다.')", 'atom comparison');
+    await waitFor("document.body.innerText.includes('분자식은 원자의 종류와 개수를 기호로 나타낸 것입니다.')", 'molecule analysis');
 
     const beforeDraw = await evaluate('document.body.innerText');
     await clickByText('큐브 뽑기');
@@ -190,7 +190,7 @@ async function main() {
           title,
           hasManifest,
           hasServiceWorkerSupport,
-          checked: ['start', 'guide', 'game', 'spell-analysis', 'draw-cube']
+          checked: ['start', 'guide', 'game', 'molecule-analysis', 'draw-cube']
         },
         null,
         2

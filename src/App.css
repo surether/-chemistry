@@ -1369,6 +1369,17 @@
   -webkit-line-clamp: 2;
 }
 
+.spell-card-attack {
+  display: -webkit-box;
+  overflow: hidden;
+  color: #6a3b1c;
+  font-size: 0.62rem;
+  font-weight: 800;
+  line-height: 1.28;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
 .missing-line {
   color: #a62d20;
   animation: warningPulse 1000ms ease-in-out infinite;
@@ -1390,7 +1401,7 @@
   min-width: 92px;
 }
 
-.equation-banner {
+.formula-banner {
   border: 2px solid rgba(69, 39, 20, 0.32);
   border-radius: 8px;
   background: rgba(53, 30, 17, 0.88);
@@ -1425,7 +1436,7 @@
 
 .reaction-arrangement {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: center;
   gap: 0.45rem;
 }

@@ -4,7 +4,7 @@
 
 - The current screen supports the chemistry fantasy learning loop.
 - Spell cards clearly show molecule name, formula, attack power, required cubes, and explanation.
-- Atom comparison remains visible for the selected formula.
+- Molecule formula analysis remains visible for the selected formula.
 
 ## Visual Review
 
@@ -26,8 +26,8 @@
 ## Learning Review
 
 - Formula cards match the requested molecule formulas.
-- Atom counts before and after match.
-- Explanations do not claim chemically incorrect full reaction behavior.
+- Required atom cube counts match each formula.
+- Explanations do not claim that the cards are full chemical reaction systems.
 - HCl includes the added chlorine cube.
 
 ## Deployment Review

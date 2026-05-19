@@ -41,8 +41,8 @@
 ## Components
 
 - `ElementCube`: colored cube with letter label.
-- `SpellCard`: formula card with name, attack power, formula, required cubes, and explanation.
-- `ReactionAnalysis`: selected spell formula, required atoms, product arrangement, and atom count table.
+- `SpellCard`: formula card with name, attack power, formula, required cubes, difficulty, and explanation.
+- `ReactionAnalysis`: selected spell formula, required atom cubes, missing cubes, and molecule formula analysis.
 - `BattleScene`: wizard/dragon background, HP bar, cube generation, and spell effect image.
 - `GameGuideModal`: compact in-game help.
 
@@ -50,7 +50,7 @@
 
 - Empty cube rows show Korean empty-state copy.
 - Castable spell cards glow.
-- Locked spell cards stay visible and show missing cubes.
+- Locked spell cards stay visible and show missing atom cubes.
 - Dragon cube danger triggers text feedback and animation.
 - Victory/defeat screens summarize learning and strategy.
 
