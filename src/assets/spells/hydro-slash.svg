@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="하이드로 슬래시 H₂">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="42%" r="62%">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.45" stop-color="#9ee8ff"/>
+      <stop offset="1" stop-color="#1564c9"/>
+    </radialGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="256" height="256" rx="28" fill="#172447"/>
+  <circle cx="128" cy="128" r="84" fill="url(#g)" opacity="0.92"/>
+  <path d="M40 148 184 54l-42 68 74-18-144 98 42-70z" fill="#e9fbff" filter="url(#glow)"/>
+  <path d="M48 162h160" stroke="#7ff3ff" stroke-width="10" stroke-linecap="square" opacity="0.55"/>
+  <text x="128" y="146" text-anchor="middle" font-family="Arial, sans-serif" font-size="62" font-weight="900" fill="#07244a">H₂</text>
+</svg>

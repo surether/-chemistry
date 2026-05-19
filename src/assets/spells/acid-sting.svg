@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="애시드 스팅 HCl">
+  <defs>
+    <linearGradient id="acid" x1="20%" y1="20%" x2="90%" y2="80%">
+      <stop offset="0" stop-color="#fbff9a"/>
+      <stop offset="0.5" stop-color="#a6ff3b"/>
+      <stop offset="1" stop-color="#1f8c2f"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="256" height="256" rx="28" fill="#26390f"/>
+  <path d="M32 138 210 44 162 118 224 126 46 218 96 144z" fill="url(#acid)" filter="url(#glow)"/>
+  <circle cx="70" cy="78" r="12" fill="#eeff69"/>
+  <circle cx="190" cy="188" r="14" fill="#c9ff5b"/>
+  <text x="128" y="154" text-anchor="middle" font-family="Arial, sans-serif" font-size="62" font-weight="900" fill="#10330f">HCl</text>
+</svg>

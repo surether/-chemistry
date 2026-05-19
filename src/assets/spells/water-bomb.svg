@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="워터 밤 H₂O">
+  <defs>
+    <radialGradient id="water" cx="45%" cy="35%" r="70%">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.45" stop-color="#72d7ff"/>
+      <stop offset="1" stop-color="#0c62c4"/>
+    </radialGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="256" height="256" rx="28" fill="#15325f"/>
+  <path d="M128 24c34 48 70 84 70 130 0 44-32 76-70 76s-70-32-70-76c0-46 36-82 70-130z" fill="url(#water)" filter="url(#glow)"/>
+  <path d="M60 172c28-18 52-18 80 0s48 18 76 0" stroke="#e5fbff" stroke-width="9" fill="none" opacity="0.7"/>
+  <text x="128" y="158" text-anchor="middle" font-family="Arial, sans-serif" font-size="60" font-weight="900" fill="#ffffff">H₂O</text>
+</svg>

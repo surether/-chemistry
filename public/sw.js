@@ -1,4 +1,4 @@
-const CACHE_NAME = 'chemistry-dragon-reaction-v1';
+const CACHE_NAME = 'chemistry-dragon-molecule-v4';
 const APP_SHELL = [
   './',
   './index.html',
@@ -33,6 +33,23 @@ self.addEventListener('fetch', (event) => {
 
   const requestUrl = new URL(request.url);
   if (requestUrl.origin !== self.location.origin) {
+    return;
+  }
+
+  const acceptsHtml = request.headers.get('accept')?.includes('text/html') ?? false;
+  if (request.mode === 'navigate' || acceptsHtml) {
+    event.respondWith(
+      fetch(request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const responseToCache = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put('./index.html', responseToCache));
+          }
+
+          return networkResponse;
+        })
+        .catch(() => caches.match('./index.html').then((cachedResponse) => cachedResponse ?? caches.match('./')))
+    );
     return;
   }
 

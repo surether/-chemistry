@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="암모니아 베일 NH₃">
+  <defs>
+    <radialGradient id="veil" cx="50%" cy="50%" r="70%">
+      <stop offset="0" stop-color="#f2ffd2"/>
+      <stop offset="0.48" stop-color="#9cea60"/>
+      <stop offset="1" stop-color="#2b7a26"/>
+    </radialGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+  </defs>
+  <rect width="256" height="256" rx="28" fill="#173c1f"/>
+  <path d="M38 154c42-68 92-80 180-48-24 82-94 110-164 84 48 0 88-18 120-52-48-10-88-2-136 16z" fill="url(#veil)" filter="url(#soft)"/>
+  <path d="M54 96c54-34 104-36 154-6M58 200c50 26 104 24 152-8" stroke="#d8ff9d" stroke-width="8" fill="none" opacity="0.48"/>
+  <text x="128" y="154" text-anchor="middle" font-family="Arial, sans-serif" font-size="60" font-weight="900" fill="#082b12">NH₃</text>
+</svg>

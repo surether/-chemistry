@@ -4,6 +4,7 @@
 
 - The current screen supports the chemistry fantasy learning loop.
 - Spell cards clearly show molecule name, formula, attack power, required cubes, and explanation.
+- Spell cards show a generated image matched to the spell name.
 - Molecule formula analysis remains visible for the selected formula.
 
 ## Visual Review
@@ -14,6 +15,7 @@
 - Text fits inside cards, buttons, and panels at desktop and compact widths.
 - `Cl` cube is visually distinct and readable.
 - Attack/effect images remain decorative and do not hide key text.
+- The attack effect uses the same image as the selected spell card.
 
 ## State Review
 

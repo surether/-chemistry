@@ -24,7 +24,7 @@ Korean middle-school science fantasy learning game. The app teaches molecule for
 ## Design Direction
 
 - Classroom-friendly classic fantasy board-game style.
-- Pixel-art meadow battle scene, parchment panels, element cubes, spell cards, dragon HP, and animated spell effects.
+- Pixel-art meadow battle scene, parchment panels, element cubes, spell cards with generated spell images, dragon HP, and animated spell effects.
 - Korean-only visible UI.
 - One-screen or compact-scroll gameplay, with clear panels for status, spell cards, analysis, and log.
 

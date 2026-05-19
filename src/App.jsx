@@ -5,12 +5,18 @@ import cubeSummonEffect from "./assets/cube-summon-effect.png";
 import dragonFireBreath from "./assets/dragon-fire-breath.png";
 import heroGateMusic from "./assets/hero-gate.mp3";
 import parchmentPanel from "./assets/parchment-panel.png";
-import spellAmmoniaVeil from "./assets/spell-ammonia-veil.png";
-import spellCarbonBurst from "./assets/spell-carbon-burst.png";
-import spellCarbonMist from "./assets/spell-carbon-mist.png";
-import spellLightningAqua from "./assets/spell-lightning-aqua.png";
-import spellMethaneInferno from "./assets/spell-methane-inferno.png";
-import spellWaterBomb from "./assets/spell-water-bomb.png";
+import spellAcidSting from "./assets/spells/acid-sting.svg";
+import spellAmmoniaVeil from "./assets/spells/ammonia-veil.svg";
+import spellCarbonBurst from "./assets/spells/carbon-burst.svg";
+import spellCarbonSmoke from "./assets/spells/carbon-smoke.svg";
+import spellGlucoseNova from "./assets/spells/glucose-nova.svg";
+import spellHydroSlash from "./assets/spells/hydro-slash.svg";
+import spellMethaneInferno from "./assets/spells/methane-inferno.svg";
+import spellNitroBarrier from "./assets/spells/nitro-barrier.svg";
+import spellOxyBlade from "./assets/spells/oxy-blade.svg";
+import spellOzoneSpark from "./assets/spells/ozone-spark.svg";
+import spellPeroxideFlash from "./assets/spells/peroxide-flash.svg";
+import spellWaterBomb from "./assets/spells/water-bomb.svg";
 import "./App.css";
 
 const DRAGON_MAX_HP = 18;
@@ -26,18 +32,33 @@ const INITIAL_BAG = [
 ];
 
 const SPELL_EFFECT_IMAGES = {
-  "hydro-slash": spellLightningAqua,
-  "oxy-blade": spellLightningAqua,
-  "nitro-barrier": spellAmmoniaVeil,
-  "carbon-smoke": spellCarbonMist,
+  "hydro-slash": spellHydroSlash,
+  "oxy-blade": spellOxyBlade,
+  "nitro-barrier": spellNitroBarrier,
+  "carbon-smoke": spellCarbonSmoke,
   "carbon-burst": spellCarbonBurst,
-  "ozone-spark": spellLightningAqua,
+  "ozone-spark": spellOzoneSpark,
   "water-bomb": spellWaterBomb,
-  "peroxide-flash": spellWaterBomb,
+  "peroxide-flash": spellPeroxideFlash,
   "methane-inferno": spellMethaneInferno,
   "ammonia-veil": spellAmmoniaVeil,
-  "acid-sting": spellCarbonBurst,
-  "glucose-nova": spellWaterBomb,
+  "acid-sting": spellAcidSting,
+  "glucose-nova": spellGlucoseNova,
+};
+
+const SPELL_SOUND_PROFILES = {
+  "hydro-slash": { start: [620, 920, 1240], impact: [220, 330] },
+  "oxy-blade": { start: [720, 1040, 1380], impact: [260, 420] },
+  "nitro-barrier": { start: [360, 540, 720], impact: [180, 240] },
+  "carbon-smoke": { start: [220, 300, 420], impact: [120, 180] },
+  "carbon-burst": { start: [300, 520, 880], impact: [90, 150] },
+  "ozone-spark": { start: [780, 1180, 1560], impact: [300, 620] },
+  "water-bomb": { start: [520, 760, 980], impact: [160, 260] },
+  "peroxide-flash": { start: [860, 1220, 1620], impact: [240, 480] },
+  "methane-inferno": { start: [260, 440, 700], impact: [80, 130] },
+  "ammonia-veil": { start: [420, 620, 860], impact: [140, 210] },
+  "acid-sting": { start: [940, 1320, 1720], impact: [210, 360] },
+  "glucose-nova": { start: [380, 760, 1140, 1520], impact: [110, 220, 440] },
 };
 
 const BACKGROUND_MUSIC = [
@@ -85,6 +106,7 @@ const SPELLS = [
     id: "hydro-slash",
     formula: "H₂",
     name: "하이드로 슬래시",
+    image: spellHydroSlash,
     requiredCubes: { H: 2 },
     damage: 1,
     difficulty: "쉬움",
@@ -95,6 +117,7 @@ const SPELLS = [
     id: "oxy-blade",
     formula: "O₂",
     name: "옥시 블레이드",
+    image: spellOxyBlade,
     requiredCubes: { O: 2 },
     damage: 1,
     difficulty: "쉬움",
@@ -105,6 +128,7 @@ const SPELLS = [
     id: "nitro-barrier",
     formula: "N₂",
     name: "나이트로 배리어",
+    image: spellNitroBarrier,
     requiredCubes: { N: 2 },
     damage: 2,
     difficulty: "보통",
@@ -115,6 +139,7 @@ const SPELLS = [
     id: "carbon-smoke",
     formula: "CO",
     name: "카본 스모크",
+    image: spellCarbonSmoke,
     requiredCubes: { C: 1, O: 1 },
     damage: 2,
     difficulty: "보통",
@@ -125,6 +150,7 @@ const SPELLS = [
     id: "carbon-burst",
     formula: "CO₂",
     name: "카본 버스트",
+    image: spellCarbonBurst,
     requiredCubes: { C: 1, O: 2 },
     damage: 3,
     difficulty: "보통",
@@ -135,6 +161,7 @@ const SPELLS = [
     id: "ozone-spark",
     formula: "O₃",
     name: "오존 스파크",
+    image: spellOzoneSpark,
     requiredCubes: { O: 3 },
     damage: 3,
     difficulty: "보통",
@@ -145,6 +172,7 @@ const SPELLS = [
     id: "water-bomb",
     formula: "H₂O",
     name: "워터 밤",
+    image: spellWaterBomb,
     requiredCubes: { H: 2, O: 1 },
     damage: 3,
     difficulty: "보통",
@@ -155,6 +183,7 @@ const SPELLS = [
     id: "peroxide-flash",
     formula: "H₂O₂",
     name: "퍼옥사이드 플래시",
+    image: spellPeroxideFlash,
     requiredCubes: { H: 2, O: 2 },
     damage: 4,
     difficulty: "어려움",
@@ -165,6 +194,7 @@ const SPELLS = [
     id: "methane-inferno",
     formula: "CH₄",
     name: "메테인 인페르노",
+    image: spellMethaneInferno,
     requiredCubes: { C: 1, H: 4 },
     damage: 4,
     difficulty: "어려움",
@@ -175,6 +205,7 @@ const SPELLS = [
     id: "ammonia-veil",
     formula: "NH₃",
     name: "암모니아 베일",
+    image: spellAmmoniaVeil,
     requiredCubes: { N: 1, H: 3 },
     damage: 4,
     difficulty: "어려움",
@@ -185,6 +216,7 @@ const SPELLS = [
     id: "acid-sting",
     formula: "HCl",
     name: "애시드 스팅",
+    image: spellAcidSting,
     requiredCubes: { H: 1, Cl: 1 },
     damage: 5,
     difficulty: "희귀",
@@ -195,6 +227,7 @@ const SPELLS = [
     id: "glucose-nova",
     formula: "C₆H₁₂O₆",
     name: "글루코스 노바",
+    image: spellGlucoseNova,
     requiredCubes: { C: 6, H: 12, O: 6 },
     damage: 10,
     difficulty: "필살기",
@@ -401,7 +434,7 @@ function CubeCounts({ counts, includeDragon = false }) {
   );
 }
 
-function BattleScene({ dragonHp, animationState, showTitle = false, attackCubes = [], attackEffectSrc = spellWaterBomb }) {
+function BattleScene({ dragonHp, animationState, showTitle = false, attackCubes = [], attackEffectSrc = spellHydroSlash }) {
   const hpPercent = Math.max(0, Math.min(100, (dragonHp / DRAGON_MAX_HP) * 100));
 
   return (
@@ -616,6 +649,9 @@ function SpellCard({ spell, selected, castable, missing, onSelect }) {
         <span>난이도 {spell.difficulty}</span>
       </span>
       <small>분자식 {spell.formula}</small>
+      <span className="spell-art-frame">
+        <img className="spell-art" src={spell.image} alt={`${spell.name} 주문 이미지`} />
+      </span>
       <em>필요 큐브: {formatRequiredCubes(spell.requiredCubes)}</em>
       <span className="mini-cubes">
         {requiredCubeList.map((cube, index) => (
@@ -783,7 +819,7 @@ function GameScreen({
         dragonHp={dragonHp}
         animationState={animationState}
         attackCubes={cubesFromRequirements(selectedSpell.requiredCubes)}
-        attackEffectSrc={SPELL_EFFECT_IMAGES[selectedSpell.id] ?? spellWaterBomb}
+        attackEffectSrc={selectedSpell.image ?? SPELL_EFFECT_IMAGES[selectedSpell.id] ?? spellHydroSlash}
       />
       <div className="compact-tabs" role="tablist" aria-label="게임 패널">
         {MOBILE_TABS.map((tab) => (
@@ -1057,13 +1093,15 @@ export default function App() {
     source.stop(startTime + duration);
   }
 
-  function playSfx(type) {
+  function playSfx(type, spellId = null) {
     const context = getAudioContext();
     if (!context) {
       return;
     }
 
     const now = context.currentTime;
+    const spellProfile = spellId ? SPELL_SOUND_PROFILES[spellId] : null;
+
     if (type === "draw") {
       playTone(context, 660, now, 0.08, "triangle", 0.05);
       playTone(context, 940, now + 0.04, 0.1, "sine", 0.04);
@@ -1084,6 +1122,14 @@ export default function App() {
     }
 
     if (type === "cast") {
+      if (spellProfile) {
+        spellProfile.start.forEach((frequency, index) => {
+          playTone(context, frequency, now + index * 0.075, 0.16, index % 2 === 0 ? "triangle" : "sine", 0.048);
+        });
+        playNoise(context, now + 0.18, 0.28, 0.045, 1500 + spellProfile.start.length * 120);
+        return;
+      }
+
       playTone(context, 440, now, 0.12, "triangle", 0.05);
       playTone(context, 660, now + 0.08, 0.12, "triangle", 0.05);
       playTone(context, 990, now + 0.16, 0.18, "sine", 0.055);
@@ -1092,6 +1138,14 @@ export default function App() {
     }
 
     if (type === "impact") {
+      if (spellProfile) {
+        playNoise(context, now, 0.34, 0.12, 680);
+        spellProfile.impact.forEach((frequency, index) => {
+          playTone(context, frequency, now + index * 0.045, 0.24, "sawtooth", 0.055);
+        });
+        return;
+      }
+
       playNoise(context, now, 0.34, 0.12, 720);
       playTone(context, 180, now, 0.26, "sawtooth", 0.065);
       return;
@@ -1268,8 +1322,8 @@ export default function App() {
     setDragonHp(nextDragonHp);
     setCastHistory((previous) => [...previous, spell.id]);
     setUsedElementHistory((previous) => [...previous, ...used]);
-    playSfx("cast");
-    window.setTimeout(() => playSfx("impact"), 2140);
+    playSfx("cast", spell.id);
+    window.setTimeout(() => playSfx("impact", spell.id), 2140);
     triggerAnimation("cast");
     addEventLog(`주문 성공! ${spell.formula} 분자식을 완성했습니다. 드래곤에게 ${spell.damage} 피해를 입혔습니다.`, "success");
 

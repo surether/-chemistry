@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="카본 버스트 CO₂">
+  <defs>
+    <radialGradient id="burst" cx="50%" cy="46%" r="70%">
+      <stop offset="0" stop-color="#fff7b1"/>
+      <stop offset="0.35" stop-color="#ffb13b"/>
+      <stop offset="1" stop-color="#b01515"/>
+    </radialGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="256" height="256" rx="28" fill="#3a160e"/>
+  <path d="M128 18 150 88 214 58 178 122 236 152 166 166 184 234 128 188 72 234 90 166 20 152 78 122 42 58 106 88z" fill="url(#burst)" filter="url(#glow)"/>
+  <text x="128" y="152" text-anchor="middle" font-family="Arial, sans-serif" font-size="58" font-weight="900" fill="#281008">CO₂</text>
+</svg>

@@ -168,6 +168,9 @@ async function main() {
     await clickByText('바로 게임 시작');
     await waitFor("document.body.innerText.includes('드래곤 체력')", 'game screen');
     await waitFor("document.body.innerText.includes('주문 카드')", 'spell cards');
+    await waitFor("document.querySelectorAll('.spell-card').length === 12", 'twelve molecule spell cards');
+    await waitFor("document.querySelectorAll('.spell-art').length === 12", 'spell card images');
+    await waitFor("document.body.innerText.includes('하이드로 슬래시') && document.body.innerText.includes('글루코스 노바') && document.body.innerText.includes('HCl')", 'new molecule spell names');
     await waitFor("document.body.innerText.includes('선택한 주문')", 'selected spell panel');
     await waitFor("document.body.innerText.includes('분자식은 원자의 종류와 개수를 기호로 나타낸 것입니다.')", 'molecule analysis');
 
@@ -190,7 +193,7 @@ async function main() {
           title,
           hasManifest,
           hasServiceWorkerSupport,
-          checked: ['start', 'guide', 'game', 'molecule-analysis', 'draw-cube']
+          checked: ['start', 'guide', 'game', 'molecule-spell-cards', 'spell-images', 'molecule-analysis', 'draw-cube']
         },
         null,
         2

@@ -41,9 +41,9 @@
 ## Components
 
 - `ElementCube`: colored cube with letter label.
-- `SpellCard`: formula card with name, attack power, formula, required cubes, difficulty, and explanation.
+- `SpellCard`: formula card with name, attack power, formula, required cubes, difficulty, generated spell image, and explanation.
 - `ReactionAnalysis`: selected spell formula, required atom cubes, missing cubes, and molecule formula analysis.
-- `BattleScene`: wizard/dragon background, HP bar, cube generation, and spell effect image.
+- `BattleScene`: wizard/dragon background, HP bar, cube generation, and the selected spell image as the attack effect.
 - `GameGuideModal`: compact in-game help.
 
 ## States

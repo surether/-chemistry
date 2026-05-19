@@ -1351,6 +1351,45 @@
   padding: 0.2rem 0.32rem;
 }
 
+.spell-art-frame {
+  position: relative;
+  display: grid;
+  min-height: 76px;
+  overflow: hidden;
+  place-items: center;
+  border: 2px solid rgba(87, 49, 24, 0.24);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255, 248, 214, 0.78), rgba(177, 112, 47, 0.22)),
+    rgba(255, 244, 198, 0.72);
+}
+
+.spell-art-frame::after {
+  position: absolute;
+  inset: 7px;
+  border: 1px dashed rgba(83, 49, 22, 0.28);
+  border-radius: 6px;
+  content: "";
+  pointer-events: none;
+}
+
+.spell-art {
+  width: min(88px, 58%);
+  aspect-ratio: 1;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 12px rgba(47, 26, 14, 0.28));
+  transform: translateZ(0);
+  transition:
+    transform 180ms ease-out,
+    filter 180ms ease-out;
+}
+
+.spell-card:hover .spell-art,
+.spell-card.is-selected .spell-art {
+  filter: drop-shadow(0 10px 16px rgba(31, 132, 166, 0.34));
+  transform: scale(1.05) rotate(-1deg);
+}
+
 .mini-cubes {
   display: flex;
   flex-wrap: wrap;

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="퍼옥사이드 플래시 H₂O₂">
+  <defs>
+    <radialGradient id="flash" cx="50%" cy="45%" r="72%">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.32" stop-color="#fff2a6"/>
+      <stop offset="0.68" stop-color="#76e7ff"/>
+      <stop offset="1" stop-color="#1d70d2"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="256" height="256" rx="28" fill="#18335a"/>
+  <path d="M128 16 146 92 218 66 174 130 238 160 160 168 170 240 128 178 86 240 96 168 18 160 82 130 38 66 110 92z" fill="url(#flash)" filter="url(#glow)"/>
+  <circle cx="66" cy="78" r="12" fill="#ffffff"/>
+  <circle cx="198" cy="92" r="10" fill="#ffffff"/>
+  <circle cx="204" cy="198" r="14" fill="#d6fbff"/>
+  <text x="128" y="154" text-anchor="middle" font-family="Arial, sans-serif" font-size="48" font-weight="900" fill="#082b58">H₂O₂</text>
+</svg>
